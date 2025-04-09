@@ -43,6 +43,7 @@ Langkah awal untuk semua anggota, hanya dilakukan sekali
 
 
   git clone https://github.com/mbok-rondo/mbok-rondo-game.git 
+  
   cd mbok-rondo-game
   
 🔁 2. Ambil Update Terbaru dari master (Setiap Hari)
