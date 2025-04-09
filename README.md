@@ -82,7 +82,7 @@ Kemudian gabungkan ke branch kamu sendiri agar up-to-date:
 🔄 3. Merge ke Branch master
   git checkout master
   git pull origin master  # pastikan master versi terbaru
-  # Lalu merge satu per satu
+Lalu merge satu per satu
   git merge yazid
   git merge hilmy
   git merge yudha
