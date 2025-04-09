@@ -36,7 +36,7 @@
    git commit -m "Deskripsi singkat update"
    git push origin fitur-nama
 
-##👨‍💻 PANDUAN UNTUK SEMUA ANGGOTA TIM
+## 👨‍💻 PANDUAN UNTUK SEMUA ANGGOTA TIM
 
 ✅ 1. Clone Project dari GitHub
 Langkah awal untuk semua anggota, hanya dilakukan sekali
@@ -72,7 +72,7 @@ Kemudian gabungkan ke branch kamu sendiri agar up-to-date:
 
 
 
-##🧑‍💼 PANDUAN UNTUK ADMIN (NABIL)
+## 🧑‍💼 PANDUAN UNTUK ADMIN (NABIL)
 
 **✅ 1. Ambil Semua Update dari Semua Branch
   git fetch --all
