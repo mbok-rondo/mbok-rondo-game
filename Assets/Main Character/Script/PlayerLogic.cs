@@ -18,7 +18,7 @@ public class PlayerLogic : MonoBehaviour
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
-        PlayerOrientation = this.GetComponent<Transform>();
+       // PlayerOrientation = this.GetComponent<Transform>();
     }
 
     // Update is called once per frame
