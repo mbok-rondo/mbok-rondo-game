@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
 {
-
     private Rigidbody rb;
     public Transform PlayerOrientation;
     public float walkspeed, runspeed;
@@ -18,48 +17,51 @@ public class PlayerLogic : MonoBehaviour
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
-       // PlayerOrientation = this.GetComponent<Transform>();
+        rb.freezeRotation = true; // Supaya nggak muter random kalau kena benturan
     }
 
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        GetInput();
+        HandleAnimation();
     }
 
-    private void Movement(){
+    void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    private void GetInput()
+    {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
         moveDirection = PlayerOrientation.forward * verticalInput + PlayerOrientation.right * horizontalInput;
-        rb.AddForce (moveDirection.normalized * walkspeed * 10f, ForceMode.Force);  
-
-        if(grounded && moveDirection != Vector3.zero)
-        {
-            if(Input.GetKey(KeyCode.LeftShift) )
-            {
-                anim.SetBool("Run", true);
-                anim.SetBool("Walk", false);
-                rb.AddForce(moveDirection.normalized * runspeed * 10f, ForceMode.Force);
-            }
-            else
-            {
-                anim.SetBool("Walk", true);
-                anim.SetBool("Run", false);
-                rb.AddForce(moveDirection.normalized * walkspeed * 10f, ForceMode.Force);
-            }
-        }
-        else
-        {
-            anim.SetBool("Walk",false);
-            anim.SetBool("Run", false);
-
-        }
     }
 
+    private void MovePlayer()
+    {
+        if (!grounded) return;
 
-    public void groundedchanger(){
+        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runspeed : walkspeed;
+
+        Vector3 forceToAdd = moveDirection.normalized * currentSpeed;
+        rb.velocity = new Vector3(forceToAdd.x, rb.velocity.y, forceToAdd.z);
+    }
+
+    private void HandleAnimation()
+    {
+        bool isMoving = moveDirection.magnitude > 0.1f;
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) && isMoving;
+
+        anim.SetBool("Run", isRunning);
+        anim.SetBool("Walk", isMoving && !isRunning);
+    }
+
+    // TIDAK DIUBAH SESUAI PERMINTAAN
+    public void groundedchanger()
+    {
         grounded = true;
     }
-
 }
