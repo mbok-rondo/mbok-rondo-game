@@ -132,6 +132,14 @@ Push perubahan ke remote setelah rebase:
 
 git push origin nama-branch-kamu --force-with-lease
 
+contoh
+
+
+git push origin yudha --force-with-lease
+
+
+-----------------------------------------------------
+
 Poin-poin penting yang telah diperbaiki:
 
 Mengganti git merge master dengan git rebase master untuk menjaga riwayat commit tetap bersih dan menghindari "merge commits" yang tidak perlu.
