@@ -67,7 +67,7 @@ git rebase --continue
 
 Setelah selesai, jangan lupa untuk mem-push perubahan kamu:
 
-git push origin nama-branch-kamu --force-with-lease
+git push origin namabranch --force-with-lease
 
 Catatan: Menggunakan --force-with-lease untuk memaksa push setelah rebase, tetapi dengan aman tanpa menimpa perubahan yang ada di remote.
 
