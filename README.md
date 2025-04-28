@@ -65,8 +65,8 @@ Pindah ke branch kamu sendiri untuk mengerjakan tugas:
 
   
   misal git checkout yudha
-
   
+  git merge master
 🎨 4. Kerjakan Fitur Kamu
 Lakukan perubahan di Unity seperti biasa. Setelah selesai (bisa harian atau tiap milestone kecil):
 
