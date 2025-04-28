@@ -117,15 +117,15 @@ Kemudian gabungkan ke branch kamu sendiri agar up-to-date:
   
 Lalu merge satu per satu
 
-  git merge yazid
+  git merge origin/yazid
   
-  git merge hilmy
+  git merge origin/hilmy
   
-  git merge yudha
+  git merge origin/yudha
   
-  git merge echo
+  git merge origin/echo
   
-  git merge nabil
+  git merge origin/nabil
   
   
 ⬆️ 4. Push ke Remote master
