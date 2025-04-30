@@ -2,20 +2,8 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public float health = 50f;
-
-    public void TakeDamage (float amount)
+    public void StartDespawnTimer()
     {
-        health -= amount;
-        if (health <= 0f)
-        {
-            Die();
-        }
+        Destroy(gameObject, 3f); // Hancurkan objek setelah 3 detik
     }
-
-    void Die ()
-    {
-        Destroy(gameObject);
-    }
-
 }

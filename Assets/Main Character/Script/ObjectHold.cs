@@ -1,59 +1,83 @@
-    using System.Collections;
-    using System.Collections.Generic;
-    using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-    public class ObjectHold : MonoBehaviour
+public class ObjectHold : MonoBehaviour
+{
+    public GameObject Object;
+    public Transform PlayerTransform;
+    public float range = 3f;
+    public float throwForce = 10f;
+    public Camera Camera;
+
+    private bool isHolding = false;
+
+    void Update()
     {
-        public GameObject Object;
-        public Transform PlayerTransform;
-        public float range = 3f;
-        public float Go = 100f;
-        public Camera Camera;
-
-
-        void Start()
+        if (Input.GetMouseButtonDown(0))
         {
-            
-        }
-
-        void Update()
-        {
-            if (Input.GetKey("f"))
+            if (!isHolding)
             {
-                StartPickUp();
+                TryPickUp();
             }
-
-            if (Input.GetKeyUp("f"))
+            else
             {
                 Drop();
             }
         }
+    }
 
-        void StartPickUp ()
+    void TryPickUp()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out hit, range))
         {
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out hit, range))
-            {
-                Debug.Log(hit.transform.name);
+            Debug.Log("Hit: " + hit.transform.name);
 
-                Target target = hit.transform.GetComponent<Target>();
-                if (target != null)
-                {
-                    PickUp();
-                }
+            Target target = hit.transform.GetComponent<Target>();
+            if (target != null)
+            {
+                Object = hit.transform.gameObject;
+                PickUp();
             }
         }
-
-        void PickUp ()
-        {
-            Object.GetComponent<Rigidbody>().isKinematic = true;
-            Object.transform.SetParent(PlayerTransform);
-        }
-
-        void Drop ()
-        {
-            PlayerTransform.DetachChildren();
-            Object.GetComponent<Rigidbody>().isKinematic = false;
-        }
-        
     }
+
+    void PickUp()
+    {
+        if (Object == null) return;
+
+        Rigidbody rb = Object.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;  // Untuk mencegah fisika aktif saat dipegang
+        }
+
+        Object.transform.SetParent(PlayerTransform); // Menempelkan objek ke player
+        Object.transform.localPosition = Vector3.zero; // Set posisi objek ke pusat player
+        isHolding = true;
+    }
+
+    void Drop()
+    {
+        if (Object == null) return;
+
+        Object.transform.SetParent(null);
+        Rigidbody rb = Object.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.AddForce(Camera.transform.forward * throwForce, ForceMode.Impulse);
+        }
+
+        // ⬇️ Panggil fungsi untuk menghancurkan objek setelah 3 detik
+        Target target = Object.GetComponent<Target>();
+        if (target != null)
+        {
+            target.StartDespawnTimer();
+        }
+
+        isHolding = false;
+        Object = null;
+    }
+}
