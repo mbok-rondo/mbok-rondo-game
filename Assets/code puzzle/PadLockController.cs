@@ -7,33 +7,62 @@ public class PadlockController : MonoBehaviour
     public GameObject padlock;
     public GameObject RustKey;      // Referensi ke padlock (yang mengontrol peti terbuka)
     public bool isUnlocked = false; // Status apakah padlock sudah terbuka
+    public string correctCode;      // Kode yang benar
+
+    // Daftar ruller yang akan digunakan untuk membentuk kode
+    public RullerController[] rullers; 
 
     void Update()
     {
-        // Jika padlock sudah terbuka dan tombol Enter ditekan
-        if (isUnlocked && Input.GetKeyDown(KeyCode.Return)) 
+        // Jika tombol Enter ditekan, periksa apakah kode benar
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            OpenChest();
+            CheckCode();  // Periksa kode yang dimasukkan
         }
     }
 
-    // Fungsi untuk membuka padlock ketika ruller berada di angka yang benar
-    public void UnlockPadlock()
+    // Fungsi untuk memeriksa apakah kode yang dimasukkan benar
+    void CheckCode()
     {
-        isUnlocked = true; // Menandakan bahwa padlock sudah terbuka
-        Debug.Log("Padlock unlocked!");
+        // Menggabungkan nilai-nilai dari setiap ruller menjadi satu string kode
+        string enteredCode = "";
+        foreach (RullerController ruller in rullers)
+        {
+            enteredCode += ruller.currentValue.ToString();  // Ambil nilai dari setiap ruller
+        }
+
+        // Tampilkan kode yang dimasukkan di Debug Log
+        Debug.Log("Kode yang dimasukkan: " + enteredCode);  // Menampilkan kode yang dimasukkan di console debug
+
+        // Periksa apakah kode yang dimasukkan benar
+        if (enteredCode == correctCode)
+        {
+            Unlock();  // Jika kode benar, buka padlock
+        }
+        else
+        {
+            WrongCode();  // Jika kode salah, beri tahu pemain
+        }
     }
 
-    void OpenChest()
+    // Fungsi untuk membuka padlock jika kode benar
+    public void Unlock()
     {
-        // Menyembunyikan peti tertutup dan menampilkan peti terbuka
+        isUnlocked = true;  // Set isUnlocked menjadi true jika kode benar
+        Debug.Log("Kode benar! Padlock dibuka.");
+
+        // Tampilkan peti terbuka dan sembunyikan peti tertutup
         chestClosed.SetActive(false);
         chestOpen.SetActive(true);
         RustKey.SetActive(true);
 
-        // Menonaktifkan padlock setelah peti terbuka
+        // Nonaktifkan padlock
         padlock.SetActive(false);
+    }
 
-        Debug.Log("Chest opened!");
+    // Fungsi jika kode salah
+    public void WrongCode()
+    {
+        Debug.Log("Kode salah! Coba lagi.");
     }
 }

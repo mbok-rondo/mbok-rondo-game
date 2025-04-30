@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: c2590d969ca07484da8d36759643f538
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 300
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Mavient
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6a4a350de2acf9844acfc3c4ac049da0, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

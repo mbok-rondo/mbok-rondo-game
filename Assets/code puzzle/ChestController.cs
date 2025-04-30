@@ -7,25 +7,23 @@ public class ChestController : MonoBehaviour
     public GameObject padlock;
     public GameObject RustKey;       // Referensi ke padlock
 
-    void Update()
+    public PadlockController padlockController; // Tambahkan referensi ke PadlockController
+
+    // Fungsi untuk membuka peti jika kode benar
+    public void OpenChest()
     {
-        // Ketika tombol Enter ditekan
-        if (Input.GetKeyDown(KeyCode.Return))  // KeyCode.Return untuk Enter
+        if (padlockController != null && padlockController.isUnlocked) // Cek apakah padlockController ada dan padlock sudah dibuka
         {
-            OpenChest();
+            chestClosed.SetActive(false);  // Sembunyikan peti tertutup
+            chestOpen.SetActive(true);     // Tampilkan peti terbuka
+            RustKey.SetActive(true);       // Tampilkan RustKey (kunci)
+
+            padlock.SetActive(false);      // Sembunyikan padlock
+            Debug.Log("Chest opened!");
         }
-    }
-
-    void OpenChest()
-    {
-        // Menyembunyikan peti tertutup dan menampilkan peti terbuka
-        chestClosed.SetActive(false);
-        chestOpen.SetActive(true);
-        RustKey.SetActive(true);
-
-        // Menonaktifkan padlock setelah peti terbuka
-        padlock.SetActive(false);
-
-        Debug.Log("Chest opened!");
+        else
+        {
+            Debug.Log("Padlock belum terbuka. Peti tidak bisa dibuka.");
+        }
     }
 }
