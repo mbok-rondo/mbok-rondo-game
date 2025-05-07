@@ -4,64 +4,112 @@ using UnityEngine.AI;
 
 public class EnemyLogic : MonoBehaviour
 {
-    [Header("Patrol Settings")]
-    public float patrolRadius = 5f;
-    public float walkDuration = 3f;
-    public float idleDuration = 2f;
-    public float patrolSpeed = 2f;
+    public Transform player;
+    public float chaseRange = 10f;
+    public float attackRange = 2f;
+    public float timeBetweenAttacks = 1.5f;
+    public float patrolRadius = 10f;
+    public LayerMask obstacleMask;
 
     private NavMeshAgent agent;
     private Animator animator;
-    private Vector3 targetPosition;
-
-    private bool isWalking = false;
+    private bool alreadyAttacked;
+    private bool playerDead;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        agent.speed = patrolSpeed;
-        agent.stoppingDistance = 0.1f;
-
-        StartCoroutine(PatrolRoutine());
+        GoToRandomPatrolPoint();
     }
 
     void Update()
     {
-        // Update animasi berdasarkan kecepatan agent
-        if (agent.velocity.magnitude > 0.1f)
+        if (playerDead) return;
+
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (CanSeePlayer() && distanceToPlayer <= chaseRange)
         {
-            animator.SetBool("Walk", true);
+            ChasePlayer();
+
+            if (distanceToPlayer <= attackRange)
+            {
+                AttackPlayer();
+            }
         }
         else
         {
-            animator.SetBool("Walk", false);
+            Patrol();
         }
     }
 
-    IEnumerator PatrolRoutine()
+    void Patrol()
     {
-        while (true)
+        animator.SetBool("Walk", true);
+        animator.SetBool("Run", false);
+
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
-            // Dapatkan posisi acak di dalam radius
-            Vector2 randomCircle = Random.insideUnitCircle * patrolRadius;
-            targetPosition = transform.position + new Vector3(randomCircle.x, 0f, randomCircle.y);
-
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(targetPosition, out hit, patrolRadius, NavMesh.AllAreas))
-            {
-                targetPosition = hit.position;
-                agent.SetDestination(targetPosition);
-            }
-
-            // Jalan selama beberapa detik
-            isWalking = true;
-            yield return new WaitForSeconds(walkDuration);
-
-            // Berhenti jalan
-            agent.ResetPath();
-            isWalking = false;
-            yield return new WaitForSeconds(idleDuration);
+            GoToRandomPatrolPoint();
         }
+    }
+
+    void GoToRandomPatrolPoint()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * patrolRadius;
+        randomDirection += transform.position;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomDirection, out hit, patrolRadius, NavMesh.AllAreas))
+        {
+            agent.SetDestination(hit.position);
+        }
+    }
+
+void ChasePlayer()
+{
+    Debug.Log("Chasing player. Setting Run to true.");
+    animator.SetBool("Walk", false);
+    animator.SetBool("Run", true);
+    agent.SetDestination(player.position);
+}
+
+
+    void AttackPlayer()
+    {
+        agent.SetDestination(transform.position);
+        transform.LookAt(player);
+
+        animator.SetBool("Walk", false);
+        animator.SetBool("Run", false);
+        animator.SetTrigger("Attack");
+
+        if (!alreadyAttacked)
+        {
+            playerDead = true;
+            Debug.Log("MC died.");
+            // player.GetComponent<PlayerHealth>()?.Die();
+
+            alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        }
+    }
+
+    bool CanSeePlayer()
+    {
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (!Physics.Raycast(transform.position, directionToPlayer, distance, obstacleMask))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    void ResetAttack()
+    {
+        alreadyAttacked = false;
     }
 }

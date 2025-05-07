@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b74a69da9601efa45bbc52da10257579
+guid: 93d7b312f43aea0468c08d648b444810
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Scary Clown Start Walking
+      name: Zombie Running
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 49
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
