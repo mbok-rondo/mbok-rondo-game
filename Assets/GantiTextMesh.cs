@@ -6,21 +6,40 @@ public class GantiTextMesh : MonoBehaviour
     public int digit = 4;                          // Jumlah digit kode
     public PadlockController padlockController;    // Referensi ke skrip PadlockController
     public ChestController chestController;        // Referensi ke ChestController
+    public RullerController[] rullers;             // Referensi ke ruller milik chest ini
 
     void Start()
     {
-        // Generate kode baru
+        // Generate kode acak
         string kodeBaru = GenerateRandomNumber(digit);
 
-        // Tampilkan kode di kertas
+        // Tampilkan di kertas
         if (targetTextMesh != null)
             targetTextMesh.text = kodeBaru;
 
-        // Kirim ke PadlockController
+        // Kirim ke padlock
         if (padlockController != null)
             padlockController.correctCode = kodeBaru;
 
-        Debug.Log("Kode yang benar: " + kodeBaru);
+        Debug.Log("Kode yang benar (untuk " + gameObject.name + "): " + kodeBaru);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            string enteredCode = GetInputCode();
+
+            if (enteredCode == padlockController.correctCode)
+            {
+                padlockController.Unlock();
+                chestController.OpenChest();
+            }
+            else
+            {
+                padlockController.WrongCode();
+            }
+        }
     }
 
     string GenerateRandomNumber(int length)
@@ -33,32 +52,15 @@ public class GantiTextMesh : MonoBehaviour
         return result;
     }
 
-    void Update()
-    {
-        // Periksa ketika tombol Enter ditekan
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            // Misalnya kode yang dimasukkan dari RullerController atau variabel lain
-            string enteredCode = GetInputCode();  // Ambil kode yang dimasukkan pemain (misal dari RullerController)
-
-            // Cek apakah kode yang dimasukkan benar
-            if (enteredCode == padlockController.correctCode)
-            {
-                padlockController.Unlock(); // Buka padlock
-                chestController.OpenChest(); // Panggil OpenChest() untuk membuka peti
-            }
-            else
-            {
-                padlockController.WrongCode(); // Kode salah
-            }
-        }
-    }
-
-    // Fungsi untuk mendapatkan kode yang dimasukkan pemain
+    // Ambil nilai dari semua ruller yang terhubung
     string GetInputCode()
     {
-        // Di sini Anda bisa mengambil kode yang dimasukkan dari RullerController atau sistem lain
-        // Misalnya Anda dapat menggabungkan nilai dari RullerController untuk mendapatkan kode
-        return "1234";  // Ganti dengan logika untuk mendapatkan kode yang benar dari input RullerController
+        string result = "";
+        foreach (RullerController r in rullers)
+        {
+            result += r.currentValue.ToString();
+        }
+        Debug.Log("Kode dimasukkan: " + result);
+        return result;
     }
 }
