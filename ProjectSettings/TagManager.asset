@@ -10,6 +10,7 @@ TagManager:
   tags:
   - Throwable
   - Key
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,6 +21,9 @@ TagManager:
   - 
   - 
   - Door
+  - Enemy
+  - Throwable
+  - 
   - 
   - 
   - 
