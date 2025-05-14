@@ -4,112 +4,189 @@ using UnityEngine.AI;
 
 public class EnemyLogic : MonoBehaviour
 {
+    public Transform[] patrolPoints;
+    private int patrolIndex;
+
     public Transform player;
-    public float chaseRange = 10f;
-    public float attackRange = 2f;
-    public float timeBetweenAttacks = 1.5f;
-    public float patrolRadius = 10f;
-    public LayerMask obstacleMask;
+    public float chaseDistance = 10f;
+    public float attackDistance = 2f;
+    public float itemDetectRadius = 50f;
+
+    public float walkspeed, runspeed;
 
     private NavMeshAgent agent;
     private Animator animator;
-    private bool alreadyAttacked;
-    private bool playerDead;
 
-    void Start()
+    private GameObject targetItem;
+    private bool isInvestigatingItem = false;
+    private bool isWaitingAtItem = false;
+
+    private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        GoToRandomPatrolPoint();
+        patrolIndex = 0;
     }
 
-    void Update()
+    private void Update()
     {
-        if (playerDead) return;
-
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        bool canSeePlayer = CanSeePlayer();
 
-        if (CanSeePlayer() && distanceToPlayer <= chaseRange)
+        // Prioritaskan chase jika melihat player kapanpun
+        if (canSeePlayer && distanceToPlayer <= attackDistance)
         {
-            ChasePlayer();
+            StopAllCoroutines(); // hentikan investigasi jika sedang berjalan
+            HandleAttack();
+            return;
+        }
+        else if (canSeePlayer && distanceToPlayer <= chaseDistance)
+        {
+            StopAllCoroutines();
+            HandleChase();
+            return;
+        }
 
-            if (distanceToPlayer <= attackRange)
-            {
-                AttackPlayer();
-            }
+        // Jika sedang mengejar atau menunggu di item
+        if (isInvestigatingItem)
+        {
+            HandleInvestigateItem();
+            return;
+        }
+
+        // Cek item
+        if (CheckForThrowableItem())
+        {
+            HandleInvestigateItem();
         }
         else
         {
-            Patrol();
+            HandlePatrol();
         }
     }
 
-    void Patrol()
+    private void HandlePatrol()
     {
-        animator.SetBool("Walk", true);
-        animator.SetBool("Run", false);
+        agent.isStopped = false;
+        if (patrolPoints.Length == 0) return;
+
+        agent.SetDestination(patrolPoints[patrolIndex].position);
 
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
-            GoToRandomPatrolPoint();
+            patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
         }
+
+        animator.SetBool("Run", false);
+        animator.SetBool("Attack", false);
     }
 
-    void GoToRandomPatrolPoint()
+    private void HandleChase()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * patrolRadius;
-        randomDirection += transform.position;
+        isInvestigatingItem = false;
+        isWaitingAtItem = false;
 
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomDirection, out hit, patrolRadius, NavMesh.AllAreas))
-        {
-            agent.SetDestination(hit.position);
-        }
+        agent.isStopped = false;
+        agent.SetDestination(player.position);
+
+        animator.SetBool("Run", true);
+        animator.SetBool("Attack", false);
     }
 
-void ChasePlayer()
-{
-    Debug.Log("Chasing player. Setting Run to true.");
-    animator.SetBool("Walk", false);
-    animator.SetBool("Run", true);
-    agent.SetDestination(player.position);
-}
-
-
-    void AttackPlayer()
+    private void HandleAttack()
     {
-        agent.SetDestination(transform.position);
+        isInvestigatingItem = false;
+        isWaitingAtItem = false;
+
+        agent.ResetPath();
         transform.LookAt(player);
 
-        animator.SetBool("Walk", false);
         animator.SetBool("Run", false);
-        animator.SetTrigger("Attack");
+        animator.SetBool("Attack", true);
+    }
 
-        if (!alreadyAttacked)
+    private void HandleInvestigateItem()
+    {
+        if (targetItem == null)
         {
-            playerDead = true;
-            Debug.Log("MC died.");
-            // player.GetComponent<PlayerHealth>()?.Die();
+            isInvestigatingItem = false;
+            return;
+        }
 
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        if (!isWaitingAtItem)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(targetItem.transform.position);
+
+            animator.SetBool("Run", true);
+            animator.SetBool("Attack", false);
+
+            if (!agent.pathPending && agent.remainingDistance < 1.0f)
+            {
+                // Sudah sampai item, mulai tunggu 5 detik
+                StartCoroutine(InvestigateItemCoroutine());
+            }
         }
     }
 
-    bool CanSeePlayer()
+    private IEnumerator InvestigateItemCoroutine()
     {
-        Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        float distance = Vector3.Distance(transform.position, player.position);
+        isWaitingAtItem = true;
+        agent.isStopped = true;
+     //   animator.SetBool("Walk", false);
+        Debug.Log("waiting....");
+        animator.SetBool("Wait", true);
+        yield return new WaitForSeconds(5f);
 
-        if (!Physics.Raycast(transform.position, directionToPlayer, distance, obstacleMask))
+        isInvestigatingItem = false;
+        isWaitingAtItem = false;
+        targetItem = null;
+    }
+
+    private bool CheckForThrowableItem()
+    {
+        GameObject[] allItems = GameObject.FindGameObjectsWithTag("Throwable");
+
+        foreach (GameObject item in allItems)
         {
-            return true;
+            // Cek apakah item sudah pernah diinvestigasi
+            ThrowableTracker tracker = item.GetComponent<ThrowableTracker>();
+            if (tracker != null && tracker.isInvestigated)
+                continue;
+
+            // Cek apakah menyentuh tanah
+            if (Physics.Raycast(item.transform.position, Vector3.down, out RaycastHit groundHit, 2f))
+            {
+                if (groundHit.collider.CompareTag("Ground"))
+                {
+                    targetItem = item;
+                    isInvestigatingItem = true;
+
+                    // Tandai bahwa item ini sedang diinvestigasi
+                    if (tracker != null)
+                        tracker.isInvestigated = true;
+
+                    return true;
+                }
+            }
         }
+
         return false;
     }
 
-    void ResetAttack()
+
+    private bool CanSeePlayer()
     {
-        alreadyAttacked = false;
+        Ray ray = new Ray(transform.position + Vector3.up, (player.position - transform.position).normalized);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, chaseDistance))
+        {
+            if (hit.transform == player)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
