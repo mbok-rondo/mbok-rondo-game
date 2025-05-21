@@ -11,6 +11,8 @@ public class PadlockController : MonoBehaviour
 
     // Daftar ruller yang akan digunakan untuk membentuk kode
     public RullerController[] rullers; 
+    public Camera cameraMain;
+    public Camera cameraPuzzle;
 
     void Update()
     {
@@ -58,6 +60,12 @@ public class PadlockController : MonoBehaviour
 
         // Nonaktifkan padlock
         padlock.SetActive(false);
+        // Kamera kembali ke kamera utama
+        if (cameraMain != null && cameraPuzzle != null)
+        {
+            cameraMain.enabled = true;
+            cameraPuzzle.enabled = false;
+        }
     }
 
     // Fungsi jika kode salah
