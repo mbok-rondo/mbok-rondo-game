@@ -50,14 +50,36 @@ public class PlayerLogic : MonoBehaviour
         rb.velocity = new Vector3(forceToAdd.x, rb.velocity.y, forceToAdd.z);
     }
 
-    private void HandleAnimation()
-    {
-        bool isMoving = moveDirection.magnitude > 0.1f;
-        bool isRunning = Input.GetKey(KeyCode.LeftShift) && isMoving;
+private void HandleAnimation()
+{
+    bool isMoving = moveDirection.magnitude > 0.1f;
+    bool isRunning = Input.GetKey(KeyCode.LeftShift) && isMoving;
 
-        anim.SetBool("Run", isRunning);
-        anim.SetBool("Walk", isMoving && !isRunning);
+    if (isRunning)
+    {
+        anim.SetBool("Run", true);
+        anim.SetBool("Walk", false);
+      //  anim.SetBool("Idle", false);
+
+        // Tambahkan animasi lain jika ada, misalnya anim.SetBool("Attack", false);
     }
+    else if (isMoving)
+    {
+        anim.SetBool("Run", false);
+        anim.SetBool("Walk", true);
+      // anim.SetBool("Idle", false);
+
+    }
+    else
+    {
+ //       anim.SetBool("Idle", true);
+        anim.SetBool("Run", false);
+        anim.SetBool("Walk", false);
+    }
+
+    // Tambahkan log untuk debugging jika perlu
+    // Debug.Log($"Animation state - Walk: {anim.GetBool("Walk")}, Run: {anim.GetBool("Run")}");
+}
 
     // TIDAK DIUBAH SESUAI PERMINTAAN
     public void groundedchanger()

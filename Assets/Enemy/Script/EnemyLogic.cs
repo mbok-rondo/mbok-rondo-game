@@ -20,6 +20,7 @@ public class EnemyLogic : MonoBehaviour
     private GameObject targetItem;
     private bool isInvestigatingItem = false;
     private bool isWaitingAtItem = false;
+    private bool isPatrolling = false; // ✅ Flag baru ditambahkan di sini
 
     private void Start()
     {
@@ -32,11 +33,12 @@ public class EnemyLogic : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         bool canSeePlayer = CanSeePlayer();
+// Debug.Log($"Anim Params - Walk: {animator.GetBool("Walk")}, Run: {animator.GetBool("Run")}, Attack: {animator.GetBool("Attack")}, Wait: {animator.GetBool("Wait")}");
 
         // Prioritaskan chase jika melihat player kapanpun
         if (canSeePlayer && distanceToPlayer <= attackDistance)
         {
-            StopAllCoroutines(); // hentikan investigasi jika sedang berjalan
+            StopAllCoroutines();
             HandleAttack();
             return;
         }
@@ -67,9 +69,19 @@ public class EnemyLogic : MonoBehaviour
 
     private void HandlePatrol()
     {
-        agent.isStopped = false;
+        // Cegah patrol jika sedang mengerjakan hal lain
+        if (isInvestigatingItem || isWaitingAtItem)
+        {
+            isPatrolling = false;
+            animator.SetBool("Walk", false);
+            return;
+        }
+
+        isPatrolling = true;
+
         if (patrolPoints.Length == 0) return;
 
+        agent.isStopped = false;
         agent.SetDestination(patrolPoints[patrolIndex].position);
 
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
@@ -79,34 +91,47 @@ public class EnemyLogic : MonoBehaviour
 
         animator.SetBool("Run", false);
         animator.SetBool("Attack", false);
+        animator.SetBool("Walk", true);
+
+        Debug.Log("Enemy patrolling - Animation: Walk");
     }
 
     private void HandleChase()
     {
         isInvestigatingItem = false;
         isWaitingAtItem = false;
+        isPatrolling = false;
 
         agent.isStopped = false;
         agent.SetDestination(player.position);
 
         animator.SetBool("Run", true);
         animator.SetBool("Attack", false);
+        animator.SetBool("Walk", false);
+
+        Debug.Log("Enemy chasing player - Animation: Run");
     }
 
     private void HandleAttack()
     {
         isInvestigatingItem = false;
         isWaitingAtItem = false;
+        isPatrolling = false;
 
         agent.ResetPath();
         transform.LookAt(player);
 
         animator.SetBool("Run", false);
+        animator.SetBool("Walk", false);
         animator.SetBool("Attack", true);
+
+        Debug.Log("Enemy attacking player - Animation: Attack");
     }
 
     private void HandleInvestigateItem()
     {
+        isPatrolling = false;
+
         if (targetItem == null)
         {
             isInvestigatingItem = false;
@@ -120,10 +145,10 @@ public class EnemyLogic : MonoBehaviour
 
             animator.SetBool("Run", true);
             animator.SetBool("Attack", false);
+            animator.SetBool("Walk", false);
 
             if (!agent.pathPending && agent.remainingDistance < 1.0f)
             {
-                // Sudah sampai item, mulai tunggu 5 detik
                 StartCoroutine(InvestigateItemCoroutine());
             }
         }
@@ -132,15 +157,23 @@ public class EnemyLogic : MonoBehaviour
     private IEnumerator InvestigateItemCoroutine()
     {
         isWaitingAtItem = true;
+        isPatrolling = false;
+
         agent.isStopped = true;
-     //   animator.SetBool("Walk", false);
-        Debug.Log("waiting....");
+
         animator.SetBool("Wait", true);
+        animator.SetBool("Walk", false);
+        animator.SetBool("Run", false);
+
+        Debug.Log("Enemy investigating item - Animation: Wait");
+
         yield return new WaitForSeconds(5f);
 
         isInvestigatingItem = false;
         isWaitingAtItem = false;
         targetItem = null;
+
+        animator.SetBool("Wait", false);
     }
 
     private bool CheckForThrowableItem()
@@ -149,12 +182,10 @@ public class EnemyLogic : MonoBehaviour
 
         foreach (GameObject item in allItems)
         {
-            // Cek apakah item sudah pernah diinvestigasi
             ThrowableTracker tracker = item.GetComponent<ThrowableTracker>();
             if (tracker != null && tracker.isInvestigated)
                 continue;
 
-            // Cek apakah menyentuh tanah
             if (Physics.Raycast(item.transform.position, Vector3.down, out RaycastHit groundHit, 2f))
             {
                 if (groundHit.collider.CompareTag("Ground"))
@@ -162,7 +193,6 @@ public class EnemyLogic : MonoBehaviour
                     targetItem = item;
                     isInvestigatingItem = true;
 
-                    // Tandai bahwa item ini sedang diinvestigasi
                     if (tracker != null)
                         tracker.isInvestigated = true;
 
@@ -174,7 +204,6 @@ public class EnemyLogic : MonoBehaviour
         return false;
     }
 
-
     private bool CanSeePlayer()
     {
         Ray ray = new Ray(transform.position + Vector3.up, (player.position - transform.position).normalized);
@@ -182,6 +211,8 @@ public class EnemyLogic : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, chaseDistance))
         {
+                    Debug.Log("Raycast hit: " + hit.transform.name);
+
             if (hit.transform == player)
             {
                 return true;
@@ -189,4 +220,5 @@ public class EnemyLogic : MonoBehaviour
         }
         return false;
     }
+    
 }
