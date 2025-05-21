@@ -164,9 +164,9 @@ GameObject:
   m_Component:
   - component: {fileID: 92086894}
   - component: {fileID: 92086895}
-  - component: {fileID: 92086896}
   - component: {fileID: 92086897}
   - component: {fileID: 92086898}
+  - component: {fileID: 92086899}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -218,27 +218,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!95 &92086896
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92086893}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9a4762aa6a00c0f4db9aedc56f6053a1, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &92086897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +261,27 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &92086899
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92086893}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: c746077682a6aa24891c7ad1b9f48b59, type: 3}
+  m_Controller: {fileID: 9100000, guid: 9a4762aa6a00c0f4db9aedc56f6053a1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &363122005
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,6 +777,7 @@ GameObject:
   - component: {fileID: 869780133}
   - component: {fileID: 869780138}
   - component: {fileID: 869780139}
+  - component: {fileID: 869780140}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -886,6 +887,27 @@ MonoBehaviour:
   range: 3
   throwForce: 10
   Camera: {fileID: 1472149883}
+--- !u!95 &869780140
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869780132}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 8cfcb3cb4ff0e114da56982b055cf340, type: 3}
+  m_Controller: {fileID: 9100000, guid: d51f0fccb2cccd746805f7c798110550, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &900584499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5097370190579632962, guid: 8cfcb3cb4ff0e114da56982b055cf340, type: 3}
@@ -957,7 +979,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 743056145}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 9a4762aa6a00c0f4db9aedc56f6053a1, type: 2}
   m_CullingMode: 0
@@ -2050,7 +2072,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001704483}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 8cfcb3cb4ff0e114da56982b055cf340, type: 3}
   m_Controller: {fileID: 9100000, guid: d51f0fccb2cccd746805f7c798110550, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
