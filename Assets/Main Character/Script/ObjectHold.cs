@@ -70,7 +70,7 @@ public class ObjectHold : MonoBehaviour
             rb.AddForce(Camera.transform.forward * throwForce, ForceMode.Impulse);
         }
 
-        // ⬇️ Panggil fungsi untuk menghancurkan objek setelah 3 detik
+        // ⬇️ Panggil fungsi untuk menghancurkan objek
         Target target = Object.GetComponent<Target>();
         if (target != null)
         {
