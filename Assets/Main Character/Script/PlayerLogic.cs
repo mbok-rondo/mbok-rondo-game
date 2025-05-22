@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
 {
+    [Header("Player Setting")]
     private Rigidbody rb;
     public Transform PlayerOrientation;
     public float walkspeed, runspeed;
@@ -12,6 +13,11 @@ public class PlayerLogic : MonoBehaviour
     Vector3 moveDirection;
     public Animator anim;
     bool grounded = true;
+
+    [Header("Player SFX")]
+    public AudioClip StepAudio;
+    AudioSource PlayerAudio;
+    public AudioClip RunAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -50,37 +56,46 @@ public class PlayerLogic : MonoBehaviour
         rb.velocity = new Vector3(forceToAdd.x, rb.velocity.y, forceToAdd.z);
     }
 
-private void HandleAnimation()
-{
-    bool isMoving = moveDirection.magnitude > 0.1f;
-    bool isRunning = Input.GetKey(KeyCode.LeftShift) && isMoving;
-
-    if (isRunning)
+    private void HandleAnimation()
     {
-        anim.SetBool("Run", true);
-        anim.SetBool("Walk", false);
-      //  anim.SetBool("Idle", false);
+        bool isMoving = moveDirection.magnitude > 0.1f;
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) && isMoving;
 
-        // Tambahkan animasi lain jika ada, misalnya anim.SetBool("Attack", false);
+        if (isRunning)
+        {
+            anim.SetBool("Run", true);
+            anim.SetBool("Walk", false);
+        //  anim.SetBool("Idle", false);
+
+            // Tambahkan animasi lain jika ada, misalnya anim.SetBool("Attack", false);
+        }
+        else if (isMoving)
+        {
+            anim.SetBool("Run", false);
+            anim.SetBool("Walk", true);
+        // anim.SetBool("Idle", false);
+
+        }
+        else
+        {
+    //       anim.SetBool("Idle", true);
+            anim.SetBool("Run", false);
+            anim.SetBool("Walk", false);
+        }
+
+        // Tambahkan log untuk debugging jika perlu
+        // Debug.Log($"Animation state - Walk: {anim.GetBool("Walk")}, Run: {anim.GetBool("Run")}");
     }
-    else if (isMoving)
-    {
-        anim.SetBool("Run", false);
-        anim.SetBool("Walk", true);
-      // anim.SetBool("Idle", false);
-
+    private void step(){
+        Debug.Log("step");
+        PlayerAudio.clip = StepAudio;
+        PlayerAudio.Play();
     }
-    else
-    {
- //       anim.SetBool("Idle", true);
-        anim.SetBool("Run", false);
-        anim.SetBool("Walk", false);
+    private void run(){
+        Debug.Log("run");
+        PlayerAudio.clip = RunAudio;
+        PlayerAudio.Play();
     }
-
-    // Tambahkan log untuk debugging jika perlu
-    // Debug.Log($"Animation state - Walk: {anim.GetBool("Walk")}, Run: {anim.GetBool("Run")}");
-}
-
     // TIDAK DIUBAH SESUAI PERMINTAAN
     public void groundedchanger()
     {
