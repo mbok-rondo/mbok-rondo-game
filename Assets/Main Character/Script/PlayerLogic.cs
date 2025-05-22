@@ -7,7 +7,7 @@ public class PlayerLogic : MonoBehaviour
     [Header("Player Setting")]
     private Rigidbody rb;
     public Transform PlayerOrientation;
-    public float walkspeed, runspeed;
+    public float walkspeed, runspeed,fallspeed,airMultiplier;
     float horizontalInput;
     float verticalInput;
     Vector3 moveDirection;
@@ -48,13 +48,24 @@ public class PlayerLogic : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (!grounded) return;
-
         float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runspeed : walkspeed;
 
-        Vector3 forceToAdd = moveDirection.normalized * currentSpeed;
-        rb.velocity = new Vector3(forceToAdd.x, rb.velocity.y, forceToAdd.z);
+        if (grounded)
+        {
+            Vector3 forceToAdd = moveDirection.normalized * currentSpeed;
+            rb.velocity = new Vector3(forceToAdd.x, rb.velocity.y, forceToAdd.z);
+        }
+        else
+        {
+            // Beri gaya tambahan jatuh agar tidak melayang
+            rb.AddForce(Vector3.down * fallspeed, ForceMode.Acceleration);
+
+            // Izinkan kontrol arah di udara (dengan multiplier)
+            Vector3 airMove = moveDirection.normalized * currentSpeed * airMultiplier;
+            rb.AddForce(new Vector3(airMove.x, 0, airMove.z), ForceMode.Acceleration);
+        }
     }
+
 
     private void HandleAnimation()
     {

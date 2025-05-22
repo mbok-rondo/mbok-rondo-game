@@ -8,9 +8,9 @@ public class EnemyLogic : MonoBehaviour
     private int patrolIndex;
 
     public Transform player;
-    public float chaseDistance = 10f;
-    public float attackDistance = 2f;
-    public float itemDetectRadius = 50f;
+    public float chaseDistance = 40f;
+    public float attackDistance = 18;
+    public float itemDetectRadius = 100f;
 
     public float walkspeed, runspeed;
 
@@ -22,11 +22,17 @@ public class EnemyLogic : MonoBehaviour
     private bool isWaitingAtItem = false;
     private bool isPatrolling = false; // ✅ Flag baru ditambahkan di sini
 
+    [Header("Enemy SFX")]
+    public AudioClip StepAudio;
+    AudioSource EnemyAudio;
+    public AudioClip RunAudio;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         patrolIndex = 0;
+            EnemyAudio = GetComponent<AudioSource>(); // ✅ tambahkan baris ini
+
     }
 
     private void Update()
@@ -220,5 +226,14 @@ public class EnemyLogic : MonoBehaviour
         }
         return false;
     }
-    
+        private void step(){
+        Debug.Log("step");
+        EnemyAudio.clip = StepAudio;
+        EnemyAudio.Play();
+    }
+    private void run(){
+        Debug.Log("run");
+        EnemyAudio.clip = RunAudio;
+        EnemyAudio.Play();
+    }
 }
