@@ -20,12 +20,12 @@ public class PlayerAnimationEvents : MonoBehaviour
         
     }
         private void step(){
-        Debug.Log("step");
+        // Debug.Log("step");
         PlayerAudio.clip = StepAudio;
         PlayerAudio.Play();
     }
     private void run(){
-        Debug.Log("run");
+        // Debug.Log("run");
         PlayerAudio.clip = RunAudio;
         PlayerAudio.Play();
     }

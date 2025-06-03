@@ -6,10 +6,6 @@ TagManager:
   tags:
   - Throwable
   - Ground
-  tags: []
-  tags:
-  - Throwable
-  - Key
   - Enemy
   layers:
   - Default
@@ -18,11 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - Door
   - Enemy
-  - Throwable
+  - 
   - 
   - 
   - 

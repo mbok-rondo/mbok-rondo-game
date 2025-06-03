@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
 {
+    public SoundEmitter soundEmitter;
+
     [Header("Player Setting")]
     private Rigidbody rb;
     public Transform PlayerOrientation;
-    public float walkspeed, runspeed,fallspeed,airMultiplier;
+    public float walkspeed, runspeed, fallspeed, airMultiplier;
     float horizontalInput;
     float verticalInput;
     Vector3 moveDirection;
@@ -16,17 +18,17 @@ public class PlayerLogic : MonoBehaviour
 
     [Header("Player SFX")]
     public AudioClip StepAudio;
-    AudioSource PlayerAudio;
     public AudioClip RunAudio;
+    AudioSource PlayerAudio;
 
-    // Start is called before the first frame update
     void Start()
     {
-        rb = this.GetComponent<Rigidbody>();
-        rb.freezeRotation = true; // Supaya nggak muter random kalau kena benturan
+        soundEmitter = GetComponent<SoundEmitter>();
+        rb = GetComponent<Rigidbody>();
+        PlayerAudio = GetComponentInChildren<AudioSource>();
+        rb.freezeRotation = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         GetInput();
@@ -57,15 +59,11 @@ public class PlayerLogic : MonoBehaviour
         }
         else
         {
-            // Beri gaya tambahan jatuh agar tidak melayang
             rb.AddForce(Vector3.down * fallspeed, ForceMode.Acceleration);
-
-            // Izinkan kontrol arah di udara (dengan multiplier)
             Vector3 airMove = moveDirection.normalized * currentSpeed * airMultiplier;
             rb.AddForce(new Vector3(airMove.x, 0, airMove.z), ForceMode.Acceleration);
         }
     }
-
 
     private void HandleAnimation()
     {
@@ -76,38 +74,41 @@ public class PlayerLogic : MonoBehaviour
         {
             anim.SetBool("Run", true);
             anim.SetBool("Walk", false);
-        //  anim.SetBool("Idle", false);
-
-            // Tambahkan animasi lain jika ada, misalnya anim.SetBool("Attack", false);
+            soundEmitter?.EmitSound(20f, true); // suara lari
+            run();
         }
         else if (isMoving)
         {
             anim.SetBool("Run", false);
             anim.SetBool("Walk", true);
-        // anim.SetBool("Idle", false);
-
+            soundEmitter?.EmitSound(10f, true); // suara jalan
+            step();
         }
         else
         {
-    //       anim.SetBool("Idle", true);
             anim.SetBool("Run", false);
             anim.SetBool("Walk", false);
         }
+    }
 
-        // Tambahkan log untuk debugging jika perlu
-        // Debug.Log($"Animation state - Walk: {anim.GetBool("Walk")}, Run: {anim.GetBool("Run")}");
+    private void step()
+    {
+        if (StepAudio != null && !PlayerAudio.isPlaying)
+        {
+            PlayerAudio.clip = StepAudio;
+            PlayerAudio.Play();
+        }
     }
-    private void step(){
-        Debug.Log("step");
-        PlayerAudio.clip = StepAudio;
-        PlayerAudio.Play();
+
+    private void run()
+    {
+        if (RunAudio != null && !PlayerAudio.isPlaying)
+        {
+            PlayerAudio.clip = RunAudio;
+            PlayerAudio.Play();
+        }
     }
-    private void run(){
-        Debug.Log("run");
-        PlayerAudio.clip = RunAudio;
-        PlayerAudio.Play();
-    }
-    // TIDAK DIUBAH SESUAI PERMINTAAN
+
     public void groundedchanger()
     {
         grounded = true;
