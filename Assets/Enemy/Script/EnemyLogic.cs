@@ -1,16 +1,18 @@
     using System.Collections;
     using UnityEngine;
     using UnityEngine.AI;
+    using System.Collections.Generic;
 
     public class EnemyLogic : MonoBehaviour
     {
         public Transform[] patrolPoints;
         private int patrolIndex;
 
+        [Header("Enemy Radius Distance")]
         public Transform player;
         public float chaseDistance = 40f;
         public float attackDistance = 18;
-        public float itemDetectRadius = 50f;
+        public float itemDetectRadius;
 
         public float walkspeed, runspeed;
 
@@ -21,6 +23,7 @@
         private bool isInvestigatingItem = false;
         private bool isWaitingAtItem = false;
         private bool isPatrolling = false; // ✅ Flag baru ditambahkan di sini
+        [SerializeField] private LayerMask wallMask;
 
         [Header("Enemy SFX")]
         public AudioClip StepAudio;
@@ -29,7 +32,25 @@
 
         private Transform soundTarget;
         private bool isTrackingSound = false;
-        public float forgetSoundDistance = 30f; // Jarak untuk berhenti mengejar
+        public float forgetSoundDistance; // Jarak untuk berhenti mengejar
+        private float lastHeardSoundRadius;  // untuk gizmo putih
+
+        [Header("Enemy SFX For SPK")]
+        private List<SoundEvent> soundEvents = new List<SoundEvent>();
+
+        private class SoundEvent{
+            public Vector3 position;
+            public float radius;
+            public bool isPlayer;
+            public float timestamp;
+
+            public SoundEvent(Vector3 pos, float rad, bool isPlayer){
+                this.position = pos;
+                this.radius = rad;
+                this.isPlayer = isPlayer;
+                this.timestamp = Time.time;
+            }
+        }
 
         private void Start()
         {
@@ -326,91 +347,140 @@
             EnemyAudio.Play();
         }
 
-    public void OnHearSound(Vector3 soundPosition, bool isPlayerSound, float soundRadius)
-    {
-            float distanceToSound = Vector3.Distance(transform.position, soundPosition);
-
-        if (isPlayerSound)
+        public void OnHearSound(Vector3 soundPosition, bool isPlayerSound, float soundRadius)
         {
-            // Destroy soundTarget sebelumnya biar gak numpuk dummy
-            if (soundTarget != null && soundTarget.name == "SoundTarget")
-                Destroy(soundTarget.gameObject);
+            float dist = Vector3.Distance(transform.position, soundPosition);
 
-            GameObject tempTarget = new GameObject("SoundTarget");
-            tempTarget.transform.position = soundPosition;
-            Destroy(tempTarget, 5f); // auto destroy dalam 5 detik
+            // 💡 Gunakan pengurangan radius akibat tembok
+            float effectiveRadius = ApplyOcclusionReduction(soundPosition, soundRadius);
 
-            soundTarget = tempTarget.transform;
-            isTrackingSound = true;
-
-            Debug.Log($"{gameObject.name} mendengar suara PLAYER di posisi {soundPosition}");
-        }
-        else
-        {
-            // float distanceToSound = Vector3.Distance(transform.position, soundPosition);
-
-            // GANTI dari ini:
-            // if (distanceToSound <= itemDetectRadius)
-
-            // JADI ini:
-            if (distanceToSound <= soundRadius)
+            if (dist <= effectiveRadius)  // ✔️ GUNAKAN radius hasil reduksi
             {
-                GameObject nearestItem = FindNearestThrowableAt(soundPosition);
-                if (nearestItem != null)
-                {
-                    targetItem = nearestItem;
-                    isInvestigatingItem = true;
+                // Tambahkan suara ke daftar event
+                soundEvents.Add(new SoundEvent(soundPosition, soundRadius, isPlayerSound));
 
-                    ThrowableTracker tracker = nearestItem.GetComponent<ThrowableTracker>();
-                    if (tracker != null)
-                        tracker.isInvestigated = true;
+                // Evaluasi suara terbaik setelah update
+                EvaluateBestSoundTarget();
+            }
+        }
 
-                    Debug.Log($"{gameObject.name} denger suara ITEM di {soundPosition}, investigasi: {nearestItem.name}");
+
+        private void EvaluateBestSoundTarget(){
+            if (soundEvents.Count == 0) return;
+
+            //hapus suara lama
+            soundEvents.RemoveAll(e => Time.time - e.timestamp > 5f);
+
+            SoundEvent closest = null;
+            float minDist = Mathf.Infinity;
+
+            foreach (var se in soundEvents){
+                float dist = Vector3.Distance(transform.position, se.position);
+                if (dist < minDist){
+                    minDist = dist;
+                    closest = se;
                 }
             }
-        }
-    }
 
+            if (closest == null) return;
+            lastHeardSoundRadius = closest.radius; // simpan radius asli suara
 
-    
-    private GameObject FindNearestThrowableAt(Vector3 soundPosition)
-    {
-        GameObject[] allItems = GameObject.FindGameObjectsWithTag("Throwable");
-        GameObject nearest = null;
-        float minDist = Mathf.Infinity;
+            float currentTargetDist = (soundTarget != null) ? Vector3.Distance(transform.position, soundTarget.position) : Mathf.Infinity;
 
-        foreach (GameObject item in allItems)
-        {
-            float dist = Vector3.Distance(item.transform.position, soundPosition);
-            if (dist < 3f && dist < minDist) // radius suara bisa diatur
-            {
-                minDist = dist;
-                nearest = item;
+            if(soundTarget == null || minDist <currentTargetDist){
+                if(soundTarget != null && soundTarget.name == "SoundTarget")
+                Destroy(soundTarget.gameObject);
+
+                GameObject tempTarget = new GameObject ("SoundTarget");
+                tempTarget.transform.position = closest.position;
+                Destroy(tempTarget, 5f);
+
+                soundTarget = tempTarget.transform;
+                isTrackingSound = true;
+                
+                Debug.Log($"[SPK] {gameObject.name} mengejar suara terdekat di {closest.position}, jarak {minDist}");
+        // Kosongkan list agar tidak evaluasi ulang untuk suara yang sama
+
+                soundEvents.Clear();
+
             }
         }
-
-        return nearest;
-    }
-    private void OnDrawGizmosSelected()
-    {
-        // Radius suara jalan (misalnya 10)
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, 10f);
-
-        // Radius suara lari (misalnya 20)
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 20f);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, 30f);
         
-        // Radius deteksi item lemparan
-        // Gizmos.color = Color.black;
-        // Gizmos.DrawWireSphere(transform.position, 40f);
-            // Radius deteksi suara bowl/item
-    Gizmos.color = Color.yellow;
-    Gizmos.DrawWireSphere(transform.position, itemDetectRadius);
+        private float ApplyOcclusionReduction(Vector3 sourcePos, float originalRadius)
+        {
+            Vector3 direction = (transform.position - sourcePos).normalized;
+            float distance = Vector3.Distance(sourcePos, transform.position);
 
-    }
+            int wallCount = 0;
+            Ray ray = new Ray(sourcePos, direction);
+            RaycastHit[] hits = new RaycastHit[10];
+            int hitCount = Physics.RaycastNonAlloc(ray, hits, distance, wallMask);
+
+            for (int i = 0; i < hitCount; i++)
+            {
+                if (hits[i].collider != null)
+                {
+                    wallCount++;
+                    Debug.DrawLine(sourcePos, hits[i].point, Color.magenta, 1f);
+                }
+            }
+
+            float reductionPerWall = 0.4f;
+            float reducedRadius = originalRadius * Mathf.Pow(1f - reductionPerWall, wallCount);
+
+            Debug.DrawLine(sourcePos, transform.position, wallCount > 0 ? Color.gray : Color.cyan, 1f);
+            return reducedRadius;
+        }
+
+        private GameObject FindNearestThrowableAt(Vector3 soundPosition)
+        {
+            GameObject[] allItems = GameObject.FindGameObjectsWithTag("Throwable");
+            GameObject nearest = null;
+            float minDist = Mathf.Infinity;
+
+            foreach (GameObject item in allItems)
+            {
+                float dist = Vector3.Distance(item.transform.position, soundPosition);
+                if (dist < 3f && dist < minDist) // radius suara bisa diatur
+                {
+                    minDist = dist;
+                    nearest = item;
+                }
+            }
+
+            return nearest;
+        }
+        private void OnDrawGizmosSelected()
+        {
+            // Radius suara jalan (misalnya 10)
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, 20f);
+
+            // Radius suara lari (misalnya 20)
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, 30f);
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, forgetSoundDistance);
+            
+            // Radius deteksi item lemparan
+            // Gizmos.color = Color.black;
+            // Gizmos.DrawWireSphere(transform.position, 40f);
+                // Radius deteksi suara bowl/item
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, itemDetectRadius);
+
+            #if UNITY_EDITOR
+            if (Application.isPlaying && soundTarget != null)
+            {
+                float dynamicRadius = ApplyOcclusionReduction(soundTarget.position, lastHeardSoundRadius);
+                Gizmos.color = Color.white;
+                Gizmos.DrawWireSphere(transform.position, dynamicRadius);
+
+                UnityEditor.Handles.Label(transform.position + Vector3.up * 2f, $"Hearing Range: {dynamicRadius:F1}");
+            }
+            #endif
+
+        }
 
     }
