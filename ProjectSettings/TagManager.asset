@@ -8,6 +8,8 @@ TagManager:
   - Ground
   - Enemy
   - Players
+  - Key
+  - Pickup
   layers:
   - Default
   - TransparentFX
@@ -18,6 +20,9 @@ TagManager:
   - Enemy
   - Players
   - Wall
+  - 
+  - 
+  - 
   - 
   - 
   - 

@@ -22,7 +22,7 @@ public class KameraSwitcher : MonoBehaviour
     // Opsional: kembali ke kamera utama saat tekan Y
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             ActivateCamera(cameraMain);
             Debug.Log("Kembali ke kamera utama");
