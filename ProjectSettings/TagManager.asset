@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Throwable
-  - Ground
-  - Enemy
+  - Key
+  - Pickup
   layers:
   - Default
   - TransparentFX
@@ -14,7 +14,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Enemy
+  - 
   - 
   - 
   - 
