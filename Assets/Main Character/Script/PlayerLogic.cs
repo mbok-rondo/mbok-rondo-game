@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerLogic : MonoBehaviour
 {
     public SoundEmitter soundEmitter;
+    public bool canMove = true;
 
     [Header("Player Setting")]
     private Rigidbody rb;
@@ -29,17 +30,25 @@ public class PlayerLogic : MonoBehaviour
         rb.freezeRotation = true;
     }
 
-    void Update()
+ void Update()
+{
+    if (!canMove)
     {
-        GetInput();
-        HandleAnimation();
+        // Matikan animasi saat player tidak boleh bergerak
+        anim.SetBool("Walk", false);
+        anim.SetBool("Run", false);
+        return;
     }
+
+    GetInput();
+    HandleAnimation();
+}
 
     void FixedUpdate()
-    {
-        MovePlayer();
-    }
-
+{
+    if (!canMove) return; // ❌ Jangan jalanin movement
+    MovePlayer();
+}
     private void GetInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -49,21 +58,27 @@ public class PlayerLogic : MonoBehaviour
     }
 
     private void MovePlayer()
+{
+    if (!canMove) // 👉 Tambahan: Cegah gerakan jika false
     {
-        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runspeed : walkspeed;
-
-        if (grounded)
-        {
-            Vector3 forceToAdd = moveDirection.normalized * currentSpeed;
-            rb.velocity = new Vector3(forceToAdd.x, rb.velocity.y, forceToAdd.z);
-        }
-        else
-        {
-            rb.AddForce(Vector3.down * fallspeed, ForceMode.Acceleration);
-            Vector3 airMove = moveDirection.normalized * currentSpeed * airMultiplier;
-            rb.AddForce(new Vector3(airMove.x, 0, airMove.z), ForceMode.Acceleration);
-        }
+        rb.velocity = new Vector3(0, rb.velocity.y, 0); // tetap biarkan jatuh jika di udara
+        return;
     }
+
+    float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runspeed : walkspeed;
+
+    if (grounded)
+    {
+        Vector3 forceToAdd = moveDirection.normalized * currentSpeed;
+        rb.velocity = new Vector3(forceToAdd.x, rb.velocity.y, forceToAdd.z);
+    }
+    else
+    {
+        rb.AddForce(Vector3.down * fallspeed, ForceMode.Acceleration);
+        Vector3 airMove = moveDirection.normalized * currentSpeed * airMultiplier;
+        rb.AddForce(new Vector3(airMove.x, 0, airMove.z), ForceMode.Acceleration);
+    }
+}
 
     private void HandleAnimation()
     {
