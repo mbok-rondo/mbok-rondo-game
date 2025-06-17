@@ -4,108 +4,99 @@ public class RullerController : MonoBehaviour
 {
     public int currentValue = 0;
     public int maxValue = 9;
-private AudioSource audioSource;
-   public static int selectedIndex = 0;
-public static RullerController[] allRullers;
+    private AudioSource audioSource;
+    public static int selectedIndex = 0;
+    public static RullerController[] allRullers;
     private static RullerController selectedRuller;
-    
+
+    [Header("Sound Emitter (untuk trigger enemy)")]
+    public SoundEmitter soundEmitter; // <- Tambahkan ini
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
 
-        // // Hanya inisialisasi sekali
-        // if (allRullers == null || allRullers.Length == 0)
-        // {
-        //     allRullers = FindObjectsOfType<RullerController>();
-        // }
-    }
-public static void SelectFirstRuller()
-{
-    if (allRullers != null && allRullers.Length > 0)
+    if (soundEmitter == null)
     {
-        selectedIndex = 0;
-        SelectRullerByIndex(selectedIndex);
+        soundEmitter = GetComponent<SoundEmitter>();
     }
-}
+    }
+
+    public static void SelectFirstRuller()
+    {
+        if (allRullers != null && allRullers.Length > 0)
+        {
+            selectedIndex = 0;
+            SelectRullerByIndex(selectedIndex);
+        }
+    }
+
     private void OnMouseDown()
-{
-    for (int i = 0; i < allRullers.Length; i++)
     {
-        if (allRullers[i] == this)
+        for (int i = 0; i < allRullers.Length; i++)
         {
-            SelectRullerByIndex(i);
-            Debug.Log("Selected by click: Ruller" + (i + 1));
-            break;
+            if (allRullers[i] == this)
+            {
+                SelectRullerByIndex(i);
+                Debug.Log("Selected by click: Ruller" + (i + 1));
+                break;
+            }
         }
     }
-}
 
-   void Update()
-{
-    if (!PadlockController.isPuzzleActive) return;
+    void Update()
+    {
+        if (!PadlockController.isPuzzleActive) return;
 
-    // Pemilihan Ruller langsung dengan tombol angka 1-4
-    if (Input.GetKeyDown(KeyCode.Alpha1))
-    {
-        SelectRullerByIndex(0);
-        Debug.Log("Masuk ke Ruller 1");
-    }
-    else if (Input.GetKeyDown(KeyCode.Alpha2))
-    {
-        SelectRullerByIndex(1);
-        Debug.Log("Masuk ke Ruller 2");
-    }
-    else if (Input.GetKeyDown(KeyCode.Alpha3))
-    {
-        SelectRullerByIndex(2);
-        Debug.Log("Masuk ke Ruller 3");
-    }
-    else if (Input.GetKeyDown(KeyCode.Alpha4))
-    {
-        SelectRullerByIndex(3);
-        Debug.Log("Masuk ke Ruller 4");
-    }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { SelectRullerByIndex(0); Debug.Log("Masuk ke Ruller 1"); }
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) { SelectRullerByIndex(1); Debug.Log("Masuk ke Ruller 2"); }
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) { SelectRullerByIndex(2); Debug.Log("Masuk ke Ruller 3"); }
+        else if (Input.GetKeyDown(KeyCode.Alpha4)) { SelectRullerByIndex(3); Debug.Log("Masuk ke Ruller 4"); }
 
-    // Navigasi dan rotasi untuk ruller yang sedang aktif
-    if (selectedRuller == this)
-    {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (selectedRuller == this)
         {
-            RotateUp();
-        }
-        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            RotateDown();
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) RotateUp();
+            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) RotateDown();
         }
     }
-}
 
-
-
-  void RotateUp()
-{
-    currentValue = (currentValue + 1) % (maxValue + 1);
-    transform.Rotate(-36f, 0, 0);
-    Debug.Log(name + " value: " + currentValue);
-    PlaySound();
-}
-
-void RotateDown()
-{
-    currentValue = (currentValue - 1 + (maxValue + 1)) % (maxValue + 1);
-    transform.Rotate(36f, 0, 0);
-    Debug.Log(name + " value: " + currentValue);
-    PlaySound();
-}
-
-void PlaySound()
-{
-    if (audioSource != null && audioSource.clip != null)
+    void RotateUp()
     {
-        audioSource.Play();
+        currentValue = (currentValue + 1) % (maxValue + 1);
+        transform.Rotate(-36f, 0, 0);
+        Debug.Log(name + " value: " + currentValue);
+        PlaySound();
+        EmitSoundTrigger(); // ✅ panggil di sini
     }
-}
+
+    void RotateDown()
+    {
+        currentValue = (currentValue - 1 + (maxValue + 1)) % (maxValue + 1);
+        transform.Rotate(36f, 0, 0);
+        Debug.Log(name + " value: " + currentValue);
+        PlaySound();
+        EmitSoundTrigger(); // ✅ panggil di sini
+    }
+
+    void PlaySound()
+    {
+        if (audioSource != null && audioSource.clip != null)
+        {
+            audioSource.Play();
+        }
+    }
+
+    void EmitSoundTrigger()
+    {
+        if (soundEmitter != null)
+        {
+            soundEmitter.EmitSound(20f, true); // Radius 20, suara player
+        }
+        else
+        {
+            Debug.LogWarning("[RULLER] SoundEmitter belum di-assign di inspector!");
+        }
+    }
 
     void SelectThisRuller()
     {
@@ -121,13 +112,13 @@ void PlaySound()
         Debug.Log("Selected by click: " + name);
     }
 
- public static void SelectRullerByIndex(int index)
-{
-    if (index >= 0 && index < allRullers.Length)
+    public static void SelectRullerByIndex(int index)
     {
-        selectedIndex = index;
-        selectedRuller = allRullers[index];
-        Debug.Log("Selected by key: " + selectedRuller.name); // ✅ Benar
+        if (index >= 0 && index < allRullers.Length)
+        {
+            selectedIndex = index;
+            selectedRuller = allRullers[index];
+            Debug.Log("Selected by key: " + selectedRuller.name);
+        }
     }
-}
 }
