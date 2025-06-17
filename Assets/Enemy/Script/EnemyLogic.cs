@@ -1,4 +1,4 @@
-    using System.Collections;
+using System.Collections;
     using UnityEngine;
     using UnityEngine.AI;
     using System.Collections.Generic;
@@ -222,6 +222,8 @@
 
         private void HandleAttack(Transform target)
         {
+                if (target == null) return;
+    if (target.name == "SoundTarget") return; // hindari menyerang dummy
             isInvestigatingItem = false;
             isWaitingAtItem = false;
             isPatrolling = false;
@@ -354,7 +356,7 @@
             // 💡 Gunakan pengurangan radius akibat tembok
             float effectiveRadius = ApplyOcclusionReduction(soundPosition, soundRadius);
 
-            if (dist <= effectiveRadius)  // ✔️ GUNAKAN radius hasil reduksi
+            if (dist <= effectiveRadius)  // ✔ GUNAKAN radius hasil reduksi
             {
                 // Tambahkan suara ke daftar event
                 soundEvents.Add(new SoundEvent(soundPosition, soundRadius, isPlayerSound));
@@ -391,11 +393,18 @@
                 if(soundTarget != null && soundTarget.name == "SoundTarget")
                 Destroy(soundTarget.gameObject);
 
-                GameObject tempTarget = new GameObject ("SoundTarget");
+            if (closest.isPlayer)
+            {
+                soundTarget = player; // <- langsung pakai player
+            }
+            else
+            {
+                GameObject tempTarget = new GameObject("SoundTarget");
                 tempTarget.transform.position = closest.position;
                 Destroy(tempTarget, 5f);
-
                 soundTarget = tempTarget.transform;
+            }
+
                 isTrackingSound = true;
                 
                 Debug.Log($"[SPK] {gameObject.name} mengejar suara terdekat di {closest.position}, jarak {minDist}");
@@ -454,11 +463,11 @@
         {
             // Radius suara jalan (misalnya 10)
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, 20f);
+            Gizmos.DrawWireSphere(transform.position, 10f);
 
             // Radius suara lari (misalnya 20)
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, 30f);
+            Gizmos.DrawWireSphere(transform.position, 15f);
 
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, forgetSoundDistance);
@@ -481,6 +490,6 @@
             }
             #endif
 
-        }
+        }
 
-    }
+    }
