@@ -15,19 +15,18 @@ public class PadlockController : MonoBehaviour
     public Camera cameraPuzzle;
     public PlayerLogic player;
 
-   void Update()
-{
-    if (Input.GetKeyDown(KeyCode.Return))
+    void Update()
     {
-        CheckCode();
-    }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            CheckCode();
+        }
 
-    // ✅ Keluar dari mode puzzle dengan tombol Escape
-    if (isPuzzleActive && Input.GetKeyDown(KeyCode.Escape))
-    {
-        ExitPuzzleMode();
+        if (isPuzzleActive && Input.GetKeyDown(KeyCode.Escape))
+        {
+            ExitPuzzleMode();
+        }
     }
-}
 
     void CheckCode()
     {
@@ -59,47 +58,50 @@ public class PadlockController : MonoBehaviour
         RustKey.SetActive(true);
         padlock.SetActive(false);
 
-        ExitPuzzleMode(); // Keluar dari mode puzzle
+        // Hapus kode dari tampilan UI jika cocok
+        if (KodeUIManager.Instance != null)
+        {
+            KodeUIManager.Instance.HapusKode(correctCode);
+        }
+
+        ExitPuzzleMode();
     }
 
     private void OnMouseDown()
     {
         if (!isUnlocked)
         {
-            EnterPuzzleMode(); // ✅ Ubah ke nama fungsi yang benar
+            EnterPuzzleMode();
         }
     }
 
     void EnterPuzzleMode()
-{
-    if (cameraMain != null && cameraPuzzle != null)
     {
-        cameraMain.enabled = false;
-        cameraPuzzle.enabled = true;
+        if (cameraMain != null && cameraPuzzle != null)
+        {
+            cameraMain.enabled = false;
+            cameraPuzzle.enabled = true;
+        }
+
+        if (player != null)
+        {
+            player.canMove = false;
+        }
+
+        RullerController.allRullers = this.rullers;
+        PadlockController.isPuzzleActive = true;
+
+        if (rullers.Length > 0)
+        {
+            RullerController.selectedIndex = 0;
+
+            typeof(RullerController)
+                .GetMethod("SelectRullerByIndex", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
+                ?.Invoke(null, new object[] { 0 });
+        }
+
+        Debug.Log("Masuk mode puzzle: " + gameObject.name);
     }
-
-    if (player != null)
-    {
-        player.canMove = false;
-    }
-
-    // ⬇️ Tambahkan baris ini di sini
-    RullerController.allRullers = this.rullers;
-
-    PadlockController.isPuzzleActive = true;
-
-    if (rullers.Length > 0)
-    {
-        RullerController.selectedIndex = 0;
-
-        // Panggil fungsi untuk memilih ruller pertama
-        typeof(RullerController)
-            .GetMethod("SelectRullerByIndex", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
-            ?.Invoke(null, new object[] { 0 });
-    }
-
-    Debug.Log("Masuk mode puzzle: " + gameObject.name);
-}
 
     void ExitPuzzleMode()
     {
