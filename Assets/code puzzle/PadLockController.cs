@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PadlockController : MonoBehaviour
 {
     public GameObject chestClosed;
@@ -14,7 +14,7 @@ public class PadlockController : MonoBehaviour
     public Camera cameraMain;
     public Camera cameraPuzzle;
     public PlayerLogic player;
-
+public Text[] kodeTexts; 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
@@ -58,12 +58,15 @@ public class PadlockController : MonoBehaviour
         RustKey.SetActive(true);
         padlock.SetActive(false);
 
-        // Hapus kode dari tampilan UI jika cocok
-        if (KodeUIManager.Instance != null)
-        {
-            KodeUIManager.Instance.HapusKode(correctCode);
-        }
-
+        
+        // Cek semua text UI, sembunyikan jika cocok dengan correctCode
+foreach (Text t in kodeTexts)
+{
+    if (t != null && t.text.Contains(correctCode))
+    {
+        t.gameObject.SetActive(false);
+    }
+}
         ExitPuzzleMode();
     }
 

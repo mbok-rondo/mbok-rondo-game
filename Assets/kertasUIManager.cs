@@ -1,35 +1,37 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class KertasUIManager : MonoBehaviour
 {
     public static KertasUIManager Instance;
+    public Text kodeTextUI; // Assign ke Text kiri bawah di Canvas
 
-    public GameObject kodePrefab; // UI Text prefab
-    public Transform parentPanel; // Panel di pojok kiri bawah untuk menampung kode
-    private Dictionary<PadlockController, GameObject> kodeMap = new Dictionary<PadlockController, GameObject>();
+    private List<string> semuaKode = new List<string>();
 
-    void Awake()
+    private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
-    public void TampilkanKode(string kode, PadlockController padlock)
+    public void TambahkanKode(string kodeBaru)
     {
-        GameObject kodeObj = Instantiate(kodePrefab, parentPanel);
-        kodeObj.GetComponent<Text>().text = kode;
-
-        kodeMap[padlock] = kodeObj;
-    }
-
-    public void HapusKode(PadlockController padlock)
-    {
-        if (kodeMap.ContainsKey(padlock))
+        if (!semuaKode.Contains(kodeBaru))
         {
-            Destroy(kodeMap[padlock]);
-            kodeMap.Remove(padlock);
+            semuaKode.Add(kodeBaru);
+            UpdateUI();
+        }
+    }
+
+    private void UpdateUI()
+    {
+        kodeTextUI.text = "Kode yang ditemukan:\n";
+        foreach (string kode in semuaKode)
+        {
+            kodeTextUI.text += "- " + kode + "\n";
         }
     }
 }
