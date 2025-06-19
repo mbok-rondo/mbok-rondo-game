@@ -38,17 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1354302352}
-  m_IndirectSpecularColor: {r: 0.48270082, g: 0.5227051, b: 0.5574686, a: 1}
-  m_Sun: {fileID: 0}
-<<<<<<< HEAD
-  m_IndirectSpecularColor: {r: 0.4826663, g: 0.5227453, b: 0.5577126, a: 1}
-=======
-<<<<<<< Updated upstream
-  m_IndirectSpecularColor: {r: 0.48240662, g: 0.522941, b: 0.5576303, a: 1}
-=======
   m_IndirectSpecularColor: {r: 0.48263294, g: 0.52310634, b: 0.5577627, a: 1}
->>>>>>> Stashed changes
->>>>>>> origin/yazid
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2137,11 +2127,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 415016, guid: 4743926f06b7fdc4c93033724c776cdc, type: 3}
   m_PrefabInstance: {fileID: 108971440}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/yazid
 --- !u!1 &112302549
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,11 +2232,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112302549}
   m_Mesh: {fileID: -2596774734982952093, guid: 5518466ac73c3b94e8f1765c6c455927, type: 3}
-<<<<<<< HEAD
 --- !u!1 &112915248
-=======
 --- !u!1 &112831360
->>>>>>> origin/yazid
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2259,26 +2241,21 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
   - component: {fileID: 112915249}
   - component: {fileID: 112915250}
   m_Layer: 7
   m_Name: SupportCollider
-=======
   - component: {fileID: 112831361}
   - component: {fileID: 112831363}
   - component: {fileID: 112831362}
   m_Layer: 5
   m_Name: Text (TMP)
->>>>>>> origin/yazid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
 --- !u!4 &112915249
-=======
 --- !u!224 &112831361
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2413,13 +2390,11 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &122650135
->>>>>>> origin/yazid
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 112915248}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -2431,7 +2406,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &112915250
 BoxCollider:
-=======
   m_GameObject: {fileID: 122650134}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000049173826}
@@ -2444,12 +2418,10 @@ BoxCollider:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &122650136
 MonoBehaviour:
->>>>>>> origin/yazid
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 112915248}
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -2571,7 +2543,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 779625048}
   m_SourcePrefab: {fileID: 100100000, guid: 02f05bd07b76e134b9ce1d218a95057a, type: 3}
-=======
   m_GameObject: {fileID: 122650134}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -2586,8 +2557,6 @@ PrefabInstance:
   isLocked: 1
   canBeOpenedByEnemy: 0
   enemyDetectionRadius: 3
->>>>>>> Stashed changes
->>>>>>> origin/yazid
 --- !u!1001 &125984789
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8119,11 +8088,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 471382, guid: a2ddd74284add0244a0b9c1abf9d5b65, type: 3}
   m_PrefabInstance: {fileID: 425655904}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &426467762
-=======
 --- !u!1 &429769645
->>>>>>> origin/yazid
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8131,13 +8097,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
   - component: {fileID: 426467764}
   - component: {fileID: 426467763}
   m_Layer: 0
   m_Name: Camera2
   m_TagString: Untagged
-=======
   - component: {fileID: 429769649}
   - component: {fileID: 429769648}
   - component: {fileID: 429769647}
@@ -8145,23 +8109,18 @@ GameObject:
   m_Layer: 0
   m_Name: Cube
   m_TagString: Throwable
->>>>>>> origin/yazid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
 --- !u!20 &426467763
 Camera:
-=======
 --- !u!65 &429769646
 BoxCollider:
->>>>>>> origin/yazid
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 426467762}
   m_Enabled: 1
   serializedVersion: 2
@@ -8208,7 +8167,6 @@ BoxCollider:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!4 &426467764
-=======
   m_GameObject: {fileID: 429769645}
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -8275,13 +8233,11 @@ MeshFilter:
   m_GameObject: {fileID: 429769645}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &429769649
->>>>>>> origin/yazid
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 426467762}
   serializedVersion: 2
   m_LocalRotation: {x: 0.03035622, y: 0.9678831, z: -0.24873894, w: -0.020240061}
@@ -8291,7 +8247,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2120745084}
   m_LocalEulerAnglesHint: {x: 28.703, y: 183.548, z: 4.501}
-=======
   m_GameObject: {fileID: 429769645}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -8301,7 +8256,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> origin/yazid
 --- !u!1001 &433450169
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9955,11 +9909,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 461530, guid: cd395b40de0957d4d9c85b8e623a07d1, type: 3}
   m_PrefabInstance: {fileID: 492087620}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/yazid
 --- !u!1 &499201002
 GameObject:
   m_ObjectHideFlags: 0
@@ -10008,14 +9957,11 @@ MonoBehaviour:
   openAngle: 90
   openSpeed: 2
   isOpen: 0
-<<<<<<< HEAD
-=======
   requiresKey: 0
   requiredKeyName: DefaultKey
   isLocked: 1
   canBeOpenedByEnemy: 0
   enemyDetectionRadius: 3
->>>>>>> origin/yazid
 --- !u!1 &501171225
 GameObject:
   m_ObjectHideFlags: 0
@@ -10063,7 +10009,6 @@ Transform:
   - {fileID: 559301476}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1 &502587103 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7028254088279448452, guid: b6bef8e616618874aaa092edfd01f370, type: 3}
@@ -10214,9 +10159,6 @@ MonoBehaviour:
   currentValue: 0
   maxValue: 9
   soundEmitter: {fileID: 0}
-=======
->>>>>>> Stashed changes
->>>>>>> origin/yazid
 --- !u!1001 &503019716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13203,7 +13145,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 489916, guid: 0763e8f6d4dbc2a4a8ad9b0f340e81fb, type: 3}
   m_PrefabInstance: {fileID: 636419855}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &650736249 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 02f05bd07b76e134b9ce1d218a95057a, type: 3}
@@ -13215,7 +13156,6 @@ Transform:
   m_PrefabInstance: {fileID: 2084264639}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &650736251
-=======
 --- !u!1 &640395475
 GameObject:
   m_ObjectHideFlags: 0
@@ -13249,13 +13189,11 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &640395478
->>>>>>> origin/yazid
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 650736249}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -13433,7 +13371,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
-=======
   m_GameObject: {fileID: 640395475}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -13445,7 +13382,6 @@ Rigidbody:
   keyCountText: {fileID: 2030442394}
   missionCompleteUI: {fileID: 2021771640}
   defeatUI: {fileID: 789347703}
->>>>>>> origin/yazid
 --- !u!1001 &651766388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17489,10 +17425,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 433372, guid: afdad0efc675a5f4a88b20acb7b88dd5, type: 3}
   m_PrefabInstance: {fileID: 857815420}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!4 &868798495 stripped
-=======
-<<<<<<< Updated upstream
 --- !u!1001 &861894990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17543,7 +17476,6 @@ PrefabInstance:
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee1b5b58c90552741b2e3276d8b5db74, type: 3}
 --- !u!4 &861894991 stripped
-=======
 --- !u!1 &865559770
 GameObject:
   m_ObjectHideFlags: 0
@@ -17621,8 +17553,6 @@ CanvasRenderer:
   m_GameObject: {fileID: 865559770}
   m_CullTransparentMesh: 1
 --- !u!4 &868798495 stripped
->>>>>>> Stashed changes
->>>>>>> origin/yazid
 Transform:
   m_CorrespondingSourceObject: {fileID: 418962, guid: 210d38b43ba064d418e74fe6c3791d87, type: 3}
   m_PrefabInstance: {fileID: 272807933}
@@ -23924,11 +23854,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 415016, guid: 4743926f06b7fdc4c93033724c776cdc, type: 3}
   m_PrefabInstance: {fileID: 1114444052}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/yazid
 --- !u!1001 &1115101693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24008,13 +23933,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6347229189598958, guid: f7a0f5c50a2e4494c80c03ef97fa641f, type: 3}
-<<<<<<< HEAD
-=======
       propertyPath: wallMask.m_Bits
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6347229189598958, guid: f7a0f5c50a2e4494c80c03ef97fa641f, type: 3}
->>>>>>> origin/yazid
       propertyPath: itemDetectRadius
       value: 20
       objectReference: {fileID: 0}
@@ -24186,19 +24108,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 7575096556727352646, guid: f7a0f5c50a2e4494c80c03ef97fa641f, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-=======
->>>>>>> origin/yazid
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7a0f5c50a2e4494c80c03ef97fa641f, type: 3}
-<<<<<<< HEAD
 --- !u!1 &1117362673 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7575096556727352646, guid: f7a0f5c50a2e4494c80c03ef97fa641f, type: 3}
@@ -24412,9 +24330,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 962237564}
   m_SourcePrefab: {fileID: 100100000, guid: 0669f3d8f4b119f418a4bbe061cc198f, type: 3}
-=======
->>>>>>> Stashed changes
->>>>>>> origin/yazid
 --- !u!1001 &1131268380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25926,7 +25841,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 473282, guid: 59cd9f0362fbbe9429b68578566a5baa, type: 3}
   m_PrefabInstance: {fileID: 1171242214}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &1174586718 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7028254088279448452, guid: b6bef8e616618874aaa092edfd01f370, type: 3}
@@ -26077,10 +25991,6 @@ MonoBehaviour:
   currentValue: 0
   maxValue: 9
   soundEmitter: {fileID: 0}
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/yazid
 --- !u!1001 &1177339302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26137,19 +26047,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-=======
     - target: {fileID: 717092656292930632, guid: 6a540d484cbddb943ac638a00fe0a4af, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
->>>>>>> origin/yazid
     - target: {fileID: 4002911274456754326, guid: 6a540d484cbddb943ac638a00fe0a4af, type: 3}
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4002911274456754326, guid: 6a540d484cbddb943ac638a00fe0a4af, type: 3}
-<<<<<<< HEAD
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -26165,11 +26071,9 @@ PrefabInstance:
       propertyPath: Object
       value: 
       objectReference: {fileID: 903421166}
-=======
       propertyPath: m_TagString
       value: Players
       objectReference: {fileID: 0}
->>>>>>> origin/yazid
     - target: {fileID: 8677302691995380904, guid: 6a540d484cbddb943ac638a00fe0a4af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.008
@@ -26184,14 +26088,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-<<<<<<< HEAD
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a540d484cbddb943ac638a00fe0a4af, type: 3}
 --- !u!1 &1177339303 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4002911274456754326, guid: 6a540d484cbddb943ac638a00fe0a4af, type: 3}
-=======
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5204285093196952589, guid: 6a540d484cbddb943ac638a00fe0a4af, type: 3}
       insertIndex: -1
@@ -26204,7 +26106,6 @@ GameObject:
 --- !u!4 &1177339303 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5204285093196952589, guid: 6a540d484cbddb943ac638a00fe0a4af, type: 3}
->>>>>>> origin/yazid
   m_PrefabInstance: {fileID: 1177339302}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1179066821 stripped
@@ -26212,10 +26113,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 437890, guid: de989d50c4fd676479d25b597fc65314, type: 3}
   m_PrefabInstance: {fileID: 197760840}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> origin/yazid
 --- !u!1001 &1180172273
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27733,7 +27630,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 433372, guid: afdad0efc675a5f4a88b20acb7b88dd5, type: 3}
   m_PrefabInstance: {fileID: 1266116892}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &1266573285
 GameObject:
   m_ObjectHideFlags: 0
@@ -27876,10 +27772,6 @@ Transform:
   - {fileID: 139408924}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 88.703, y: 92.344, z: 0}
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/yazid
 --- !u!1 &1267571708
 GameObject:
   m_ObjectHideFlags: 0
@@ -27928,7 +27820,6 @@ MonoBehaviour:
   openAngle: 90
   openSpeed: 2
   isOpen: 0
-<<<<<<< HEAD
 --- !u!1 &1267729100 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 0669f3d8f4b119f418a4bbe061cc198f, type: 3}
@@ -27977,13 +27868,11 @@ MonoBehaviour:
   keyLayer:
     serializedVersion: 2
     m_Bits: 1024
-=======
   requiresKey: 0
   requiredKeyName: DefaultKey
   isLocked: 1
   canBeOpenedByEnemy: 0
   enemyDetectionRadius: 3
->>>>>>> origin/yazid
 --- !u!1 &1278011832
 GameObject:
   m_ObjectHideFlags: 0
@@ -28015,10 +27904,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> origin/yazid
 --- !u!1001 &1278343718
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35186,7 +35071,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 415016, guid: 4743926f06b7fdc4c93033724c776cdc, type: 3}
   m_PrefabInstance: {fileID: 1639461079}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &1641475644
 GameObject:
   m_ObjectHideFlags: 0
@@ -35539,10 +35423,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646345517}
   m_CullTransparentMesh: 1
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/yazid
 --- !u!1 &1647619154
 GameObject:
   m_ObjectHideFlags: 0
@@ -35569,11 +35449,8 @@ Transform:
   m_GameObject: {fileID: 1647619154}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.00000049173826, z: -0, w: 1}
-<<<<<<< HEAD
   m_LocalPosition: {x: -0.8, y: 0.03479004, z: 0.18}
-=======
   m_LocalPosition: {x: 3.03275, y: 0.03479004, z: 0.17830193}
->>>>>>> origin/yazid
   m_LocalScale: {x: 0.24999994, y: 0.23, z: 0.09999998}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35595,14 +35472,11 @@ MonoBehaviour:
   openAngle: 90
   openSpeed: 2
   isOpen: 0
-<<<<<<< HEAD
-=======
   requiresKey: 0
   requiredKeyName: DefaultKey
   isLocked: 1
   canBeOpenedByEnemy: 0
   enemyDetectionRadius: 3
->>>>>>> origin/yazid
 --- !u!1001 &1647638517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35661,7 +35535,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 483006, guid: 558a097bc18737e4f86558385790d6f7, type: 3}
   m_PrefabInstance: {fileID: 1647638517}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &1653001217
 GameObject:
   m_ObjectHideFlags: 0
@@ -35795,9 +35668,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653001217}
   m_CullTransparentMesh: 1
-=======
->>>>>>> Stashed changes
->>>>>>> origin/yazid
 --- !u!1001 &1657189114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37328,11 +37198,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 434308, guid: 944f673b75b562848800fece371cf725, type: 3}
   m_PrefabInstance: {fileID: 1735852737}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &1736780049
-=======
 --- !u!1 &1741429551
->>>>>>> origin/yazid
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37340,36 +37207,29 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
   - component: {fileID: 1736780050}
   - component: {fileID: 1736780053}
   - component: {fileID: 1736780052}
   - component: {fileID: 1736780051}
   m_Layer: 5
   m_Name: Text (TMP)
-=======
   - component: {fileID: 1741429552}
   - component: {fileID: 1741429553}
   m_Layer: 8
   m_Name: pintu (1)
->>>>>>> origin/yazid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
 --- !u!224 &1736780050
 RectTransform:
-=======
 --- !u!4 &1741429552
 Transform:
->>>>>>> origin/yazid
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 1736780049}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -37384,7 +37244,6 @@ Transform:
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1736780051
-=======
   m_GameObject: {fileID: 1741429551}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -37396,13 +37255,11 @@ Transform:
   m_Father: {fileID: 1146361637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1741429553
->>>>>>> origin/yazid
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 1736780049}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -37534,7 +37391,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736780049}
   m_CullTransparentMesh: 1
-=======
   m_GameObject: {fileID: 1741429551}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -37549,7 +37405,6 @@ CanvasRenderer:
   isLocked: 1
   canBeOpenedByEnemy: 0
   enemyDetectionRadius: 3
->>>>>>> origin/yazid
 --- !u!1001 &1743438673
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46574,9 +46429,6 @@ SceneRoots:
   - {fileID: 1146361637}
   - {fileID: 1633046605}
   - {fileID: 80866562}
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
   - {fileID: 129727479}
   - {fileID: 2057250080}
   - {fileID: 369258618}
@@ -46593,8 +46445,6 @@ SceneRoots:
   - {fileID: 95464858}
   - {fileID: 953344629}
   - {fileID: 1407489910}
-=======
->>>>>>> origin/yazid
   - {fileID: 501171226}
   - {fileID: 446925459}
   - {fileID: 343660533}
@@ -46618,7 +46468,6 @@ SceneRoots:
   - {fileID: 1231294536}
   - {fileID: 1117362672}
   - {fileID: 1177339302}
-<<<<<<< HEAD
   - {fileID: 1525110182}
   - {fileID: 2103636568}
   - {fileID: 1085107499}
@@ -46638,11 +46487,8 @@ SceneRoots:
   - {fileID: 1788986322}
   - {fileID: 1311005300}
   - {fileID: 1360605102}
-=======
   - {fileID: 1633769045}
   - {fileID: 2021771644}
   - {fileID: 789347707}
   - {fileID: 640395477}
   - {fileID: 429769649}
->>>>>>> Stashed changes
->>>>>>> origin/yazid
