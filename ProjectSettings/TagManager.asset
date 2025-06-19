@@ -10,6 +10,7 @@ TagManager:
   - Players
   - Key
   - Pickup
+  - Kertas
   layers:
   - Default
   - TransparentFX
@@ -20,11 +21,8 @@ TagManager:
   - Enemy
   - Players
   - Wall
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Kertas
+  - Key
   - 
   - 
   - 

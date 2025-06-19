@@ -1,21 +1,45 @@
 using UnityEngine;
 
-public class KeyPickupOnClick : MonoBehaviour
+public class KeyPickup : MonoBehaviour
 {
-    void OnMouseDown()
+    public float pickupRange = 3f;
+    public LayerMask keyLayer;
+
+    private Camera mainCam;
+
+    void Start()
     {
-        PickupKey();
+        mainCam = Camera.main;
+        if (mainCam == null)
+        {
+            Debug.LogError("Main Camera tidak ditemukan!");
+        }
     }
 
-    void PickupKey()
+    void Update()
     {
-        Debug.Log("Key picked up by click!");
+        if (Input.GetMouseButtonDown(0)) // Klik kiri
+        {
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-        // Contoh: tambahkan logika lain seperti buka pintu, aktifkan objek, dsb.
-        // Misalnya aktifkan peti terbuka:
-        // chestOpen.SetActive(true);
+            if (Physics.Raycast(ray, out hit, pickupRange, keyLayer))
+            {
+                if (hit.collider.CompareTag("Key"))
+                {
+                    AmbilKunci(hit.collider.gameObject);
+                }
+            }
+        }
+    }
 
-        // Nonaktifkan kunci
-        gameObject.SetActive(false);
+    void AmbilKunci(GameObject keyObject)
+    {
+        Debug.Log("Kunci diambil: " + keyObject.name);
+
+        // Bisa tambahkan animasi, suara, dll di sini
+        // Contoh: Tambahkan kunci ke inventory atau aktifkan chest
+
+        Destroy(keyObject); // Hilangkan kunci dari scene
     }
 }
