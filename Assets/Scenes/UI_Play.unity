@@ -2955,6 +2955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f99223e18bd94a41a971f9394f30c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stopMusicOnScene: Environtment
 --- !u!82 &1686158610
 AudioSource:
   m_ObjectHideFlags: 0
