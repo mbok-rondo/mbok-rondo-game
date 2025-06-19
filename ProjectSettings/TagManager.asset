@@ -4,13 +4,22 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< Updated upstream
   - Throwable
   - Ground
   - Enemy
   - Players
   - Key
+<<<<<<< HEAD
   - Pickup
   - Kertas
+=======
+=======
+  - Players
+  - Enemy
+  - Throwable
+>>>>>>> Stashed changes
+>>>>>>> origin/yazid
   layers:
   - Default
   - TransparentFX
@@ -18,11 +27,23 @@ TagManager:
   - 
   - Water
   - UI
+<<<<<<< HEAD
   - Enemy
   - Players
   - Wall
   - Kertas
   - Key
+=======
+<<<<<<< Updated upstream
+=======
+  - 
+>>>>>>> Stashed changes
+  - 
+  - 
+  - Door
+  - 
+  - 
+>>>>>>> origin/yazid
   - 
   - 
   - 

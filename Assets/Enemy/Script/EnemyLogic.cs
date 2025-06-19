@@ -200,9 +200,38 @@ using System.Collections;
 
         private void HandleChase(Transform target)
         {
+<<<<<<< HEAD
             isInvestigatingItem = false;
             isWaitingAtItem = false;
             isPatrolling = false;
+=======
+<<<<<<< Updated upstream
+            return true;
+=======
+                if (target == null) return;
+    if (target.name == "SoundTarget") return; // hindari menyerang dummy
+            isInvestigatingItem = false;
+            isWaitingAtItem = false;
+            isPatrolling = false;
+
+            agent.ResetPath();
+            // transform.LookAt(player);
+            transform.LookAt(target);
+
+
+            animator.SetBool("Run", false);
+            animator.SetBool("Walk", false);
+            animator.SetBool("Attack", true);
+
+            Debug.Log("Enemy attacking player - Animation: Attack");
+            
+            GameManager.instance.TriggerDefeat();
+
+>>>>>>> Stashed changes
+        }
+        return false;
+    }
+>>>>>>> origin/yazid
 
             agent.isStopped = false;
             // agent.SetDestination(player.position);

@@ -53,6 +53,9 @@
 [33mf99f820[m player wasd & npc patrol
 [33m7935c96[m Character mov & npc
 [33m5eee66f[m Player WASD and Run
+[33mf99f820[m  wasd & npc patrol
+[33m7935c96[m Character mov & npc
+[33m5eee66f[m  WASD and Run
 [33m43b9677[m menambah karakter utama
 [33mcebce53[m Merge branch 'master' into nabil
 [33m1744165[m menambah karakter utama
