@@ -4,12 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< Updated upstream
   - Throwable
   - Ground
   tags: []
   tags:
   - Throwable
   - Key
+=======
+  - Players
+  - Enemy
+  - Throwable
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
@@ -17,6 +23,10 @@ TagManager:
   - 
   - Water
   - UI
+<<<<<<< Updated upstream
+=======
+  - 
+>>>>>>> Stashed changes
   - 
   - 
   - Door
