@@ -200,54 +200,28 @@ using System.Collections;
 
         private void HandleChase(Transform target)
         {
-<<<<<<< HEAD
-            isInvestigatingItem = false;
-            isWaitingAtItem = false;
-            isPatrolling = false;
-=======
-<<<<<<< Updated upstream
-            return true;
-=======
-                if (target == null) return;
-    if (target.name == "SoundTarget") return; // hindari menyerang dummy
+            if (target == null) return;
+            if (target.name == "SoundTarget") return; // hindari menyerang dummy
+
             isInvestigatingItem = false;
             isWaitingAtItem = false;
             isPatrolling = false;
 
             agent.ResetPath();
-            // transform.LookAt(player);
             transform.LookAt(target);
 
-
-            animator.SetBool("Run", false);
+            animator.SetBool("Run", true);
             animator.SetBool("Walk", false);
-            animator.SetBool("Attack", true);
-
-            Debug.Log("Enemy attacking player - Animation: Attack");
-            
-            GameManager.instance.TriggerDefeat();
-
->>>>>>> Stashed changes
-        }
-        return false;
-    }
->>>>>>> origin/yazid
-
-            agent.isStopped = false;
-            // agent.SetDestination(player.position);
-            agent.isStopped = false;
+            animator.SetBool("Attack", false);
 
             if (!agent.hasPath || agent.remainingDistance > 0.5f)
             {
                 agent.SetDestination(target.position);
             }
 
-            animator.SetBool("Run", true);
-            animator.SetBool("Attack", false);
-            animator.SetBool("Walk", false);
-
-            // Debug.Log("Enemy chasing player - Animation: Run");
+            Debug.Log("Enemy chasing target - Animation: Run");
         }
+
 
         private void HandleAttack(Transform target)
         {
@@ -519,6 +493,5 @@ using System.Collections;
             }
             #endif
 
-        }
-
-    }
+}
+}
