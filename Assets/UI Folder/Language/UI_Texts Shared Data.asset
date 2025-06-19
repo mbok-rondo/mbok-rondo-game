@@ -35,6 +35,62 @@ MonoBehaviour:
     m_Key: lngText
     m_Metadata:
       m_Items: []
+  - m_Id: 12938160656175104
+    m_Key: nextBtn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938201319952384
+    m_Key: finishBtn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938370602061824
+    m_Key: Movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938448448344064
+    m_Key: Run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938477405818880
+    m_Key: Look
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12945764027551744
+    m_Key: Bowl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12945766477025280
+    m_Key: Paper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12945768687423488
+    m_Key: Chest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946000347222016
+    m_Key: Rusty Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946001290940416
+    m_Key: descBowl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946118895030272
+    m_Key: descPaper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946130169319424
+    m_Key: descChest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946185399914496
+    m_Key: descRustyKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946219864510464
+    m_Key: descMbokRondo
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: id
   m_SharedData: {fileID: 11400000, guid: 557a5784b9d77294e8fa4ecc2969330b, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 5714902330440679433
   m_TableData:
   - m_Id: 158996975616
     m_Localized: Mainkan
@@ -38,6 +39,73 @@ MonoBehaviour:
     m_Localized: Bahasa
     m_Metadata:
       m_Items: []
+  - m_Id: 12938160656175104
+    m_Localized: Lanjut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938201319952384
+    m_Localized: Selesai
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938370602061824
+    m_Localized: Gerakan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938448448344064
+    m_Localized: Lari
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938477405818880
+    m_Localized: Melihat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12945764027551744
+    m_Localized: Mangkuk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12945766477025280
+    m_Localized: Kertas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12945768687423488
+    m_Localized: Peti
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946000347222016
+    m_Localized: Kunci Berkarat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946001290940416
+    m_Localized: "Mangkuk logam yang dapat dilempar oleh pemain.\nPemakaian: Click
+      kiri mouse untuk mengambil dan \nclick kiri lagi untuk melempar"
+    m_Metadata:
+      m_Items:
+      - rid: 5714902330440679433
+  - m_Id: 12946118895030272
+    m_Localized: "Kertas berisi kode angka untuk membuka \npeti\nPemakaian: Click
+      kiri mouse untuk mengambil "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946130169319424
+    m_Localized: "Pemain harus memasukkan kode dari kertas-kertas \nyang dikumpulkan
+      sebelumnya untuk membuka peti ini. \nBerisi item penting seperti kunci."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946185399914496
+    m_Localized: "Digunakan untuk membuka pintu terakhir dan \nmenyelesaikan permainan.
+      Kunci ini ditemukan \nsetelah membuka Chest."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946219864510464
+    m_Localized: "Musuh yang sangat agresif, Pemain harus sebisa mungkin \nmenghindari
+      keberadaannya. Ia bereaksi terhadap suara, \nsehingga melempar bowl bisa menjadi
+      strategi untuk \nmengalihkan perhatiannya."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5714902330440679433
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 005035d051fe2d00
