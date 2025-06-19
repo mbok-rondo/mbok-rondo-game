@@ -13,7 +13,7 @@ public class LanguageManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: supaya tetap hidup antar scene
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
@@ -24,6 +24,9 @@ public class LanguageManager : MonoBehaviour
     public void SetLanguage(string languageCode)
     {
         // Jalankan coroutine lewat GameObject yang aktif
+        PlayerPrefs.SetString("SelectedLanguage", languageCode);
+        PlayerPrefs.Save();
+
         if (Instance != null && Instance.isActiveAndEnabled)
         {
             Instance.StartCoroutine(SetLocale(languageCode));

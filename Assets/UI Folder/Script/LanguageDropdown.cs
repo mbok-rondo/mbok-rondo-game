@@ -22,8 +22,7 @@ public class LanguageDropdown : MonoBehaviour
         }
 
         if (index == 0)
-            LanguageManager.Instance.SetLanguage("en"); // English
-        else if (index == 1)
-            LanguageManager.Instance.SetLanguage("id"); // Indonesian
+            LanguageManager.Instance.SetLanguage("en"); 
+            LanguageManager.Instance.SetLanguage("id");
     }
 }

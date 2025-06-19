@@ -38,6 +38,70 @@ MonoBehaviour:
     m_Localized: Language
     m_Metadata:
       m_Items: []
+  - m_Id: 12938160656175104
+    m_Localized: Next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938201319952384
+    m_Localized: Finish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938370602061824
+    m_Localized: Movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938448448344064
+    m_Localized: Run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12938477405818880
+    m_Localized: Looking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12945764027551744
+    m_Localized: Bowl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12945766477025280
+    m_Localized: Paper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12945768687423488
+    m_Localized: Chest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946000347222016
+    m_Localized: Rusty Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946001290940416
+    m_Localized: "A metal bowl that can be thrown by the player. \nUsage: Left click
+      the mouse to pick up \nand left click again to throw."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946118895030272
+    m_Localized: 'Paper containing numeric codes for open chest
+
+      Usage: Left-click
+      the mouse to capture.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946130169319424
+    m_Localized: "Players must enter codes from previously collected papers \nto
+      open this chest. Contains important items such as keys"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946185399914496
+    m_Localized: "Used to open the last door and complete the game. \nThis key is
+      found after opening the Chest."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12946219864510464
+    m_Localized: "A very aggressive enemy. Players should avoid its presence \nas
+      much as possible. It reacts to sound, \nso throwing bowls can be a strategy
+      to distract it."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

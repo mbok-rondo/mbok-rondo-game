@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MC.unity
     guid: fa36620be48f3834a966e92eea815893
   - enabled: 1
+    path: Assets/Scenes/Environtment.unity
+    guid: 6c0e5d2fe59ca5c4e84d8798ab0c73a7
+  - enabled: 1
     path: Assets/Scenes/MainCharacter.unity
     guid: cff57c06ede9970479457bc1578a90d1
   - enabled: 1
