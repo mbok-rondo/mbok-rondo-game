@@ -31,18 +31,6 @@ public class RullerController : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
-    {
-        for (int i = 0; i < allRullers.Length; i++)
-        {
-            if (allRullers[i] == this)
-            {
-                SelectRullerByIndex(i);
-                Debug.Log("Selected by click: Ruller" + (i + 1));
-                break;
-            }
-        }
-    }
 
     void Update()
     {

@@ -39,7 +39,8 @@ public class KeyPickup : MonoBehaviour
 
         // Bisa tambahkan animasi, suara, dll di sini
         // Contoh: Tambahkan kunci ke inventory atau aktifkan chest
-
+        // Panggil fungsi untuk menambah kunci di GameManager
+            GameManager.instance.CollectKey();
         Destroy(keyObject); // Hilangkan kunci dari scene
     }
 }

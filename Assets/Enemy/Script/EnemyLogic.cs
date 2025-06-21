@@ -239,7 +239,15 @@ using System.Collections;
 
             Debug.Log("Enemy attacking player - Animation: Attack");
         }
-
+public void DealDamage()
+{
+    GameObject player = GameObject.FindGameObjectWithTag("Players");
+    if (player != null)
+    {
+        GameManager.instance.TriggerDefeat();
+        Debug.Log("Damage dealt to player - TriggerDefeat called");
+    }
+}
         private void HandleInvestigateItem()
         {
             isPatrolling = false;
