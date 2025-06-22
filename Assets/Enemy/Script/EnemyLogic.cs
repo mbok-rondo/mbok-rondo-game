@@ -37,6 +37,7 @@ using System.Collections;
 
         [Header("Enemy SFX For SPK")]
         private List<SoundEvent> soundEvents = new List<SoundEvent>();
+        private SoundEvent lastHeardEvent = null;
 
         private class SoundEvent{
             public Vector3 position;
@@ -63,6 +64,8 @@ using System.Collections;
 
         private void Update()
         {
+            EvaluateBestSoundTarget(); 
+
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
             if (isTrackingSound && soundTarget != null)
@@ -366,61 +369,105 @@ public void DealDamage()
 
             if (dist <= effectiveRadius)  // ✔ GUNAKAN radius hasil reduksi
             {
-                // Tambahkan suara ke daftar event
-                soundEvents.Add(new SoundEvent(soundPosition, soundRadius, isPlayerSound));
+                // Buat event baru
+                var newEvent = new SoundEvent(soundPosition, soundRadius, isPlayerSound);
 
-                // Evaluasi suara terbaik setelah update
+                // Simpan ke list dan lastEvent
+                soundEvents.Add(newEvent);
+                lastHeardEvent = newEvent;
+
                 EvaluateBestSoundTarget();
             }
         }
 
 
         private void EvaluateBestSoundTarget(){
+
+            if (soundEvents.Count == 0 && lastHeardEvent != null)
+            {
+                soundEvents.Add(lastHeardEvent); // gunakan ulang suara terakhir
+            }
+            else if (soundEvents.Count == 0)
+            {
+                return; // tidak ada suara sama sekali
+            }
+
             if (soundEvents.Count == 0) return;
 
             //hapus suara lama
             soundEvents.RemoveAll(e => Time.time - e.timestamp > 5f);
 
-            SoundEvent closest = null;
-            float minDist = Mathf.Infinity;
+            SoundEvent bestEvent = null;
+            float bestScore = Mathf.Infinity;
 
-            foreach (var se in soundEvents){
+            foreach (var se in soundEvents)
+            {
                 float dist = Vector3.Distance(transform.position, se.position);
-                if (dist < minDist){
-                    minDist = dist;
-                    closest = se;
+
+                // 🎯 Beri bobot preferensi: lebih suka non-player jika selisih dekat
+                float priorityWeight = se.isPlayer ? 1.2f : 1.0f;
+                float score = dist * priorityWeight;
+
+                if (score < bestScore)
+                {
+                    bestScore = score;
+                    bestEvent = se;
                 }
             }
 
-            if (closest == null) return;
-            lastHeardSoundRadius = closest.radius; // simpan radius asli suara
+            if (bestEvent == null) return;
 
+            lastHeardSoundRadius = bestEvent.radius;
             float currentTargetDist = (soundTarget != null) ? Vector3.Distance(transform.position, soundTarget.position) : Mathf.Infinity;
 
-            if(soundTarget == null || minDist <currentTargetDist){
-                if(soundTarget != null && soundTarget.name == "SoundTarget")
-                Destroy(soundTarget.gameObject);
+            // 🎯 Periksa override manual jika sedang kejar player tapi bowl lebih dekat
+            if (soundTarget == player && !bestEvent.isPlayer)
+            {
+                float bowlDist = Vector3.Distance(transform.position, bestEvent.position);
+                float playerDist = Vector3.Distance(transform.position, player.position);
 
-            if (closest.isPlayer)
-            {
-                soundTarget = player; // <- langsung pakai player
+                if (bowlDist < playerDist * 0.5f) // atau 0.6–0.7 sesuai toleransi
+                {
+                    Debug.Log("[SPK OVERRIDE] Beralih ke bowl karena jauh lebih dekat dari player");
+
+                    if (soundTarget != null && soundTarget.name == "SoundTarget")
+                        Destroy(soundTarget.gameObject);
+
+                    GameObject tempTarget = new GameObject("SoundTarget");
+                    tempTarget.transform.position = bestEvent.position;
+                    Destroy(tempTarget, 5f);
+                    soundTarget = tempTarget.transform;
+
+                    isTrackingSound = true;
+                    soundEvents.Clear();
+                    return;
+                }
             }
-            else
+
+
+            if (soundTarget == null || bestScore < currentTargetDist)
             {
-                GameObject tempTarget = new GameObject("SoundTarget");
-                tempTarget.transform.position = closest.position;
-                Destroy(tempTarget, 5f);
-                soundTarget = tempTarget.transform;
-            }
+                if (soundTarget != null && soundTarget.name == "SoundTarget")
+                    Destroy(soundTarget.gameObject);
+
+                if (bestEvent.isPlayer)
+                {
+                    soundTarget = player;
+                }
+                else
+                {
+                    GameObject tempTarget = new GameObject("SoundTarget");
+                    tempTarget.transform.position = bestEvent.position;
+                    Destroy(tempTarget, 5f);
+                    soundTarget = tempTarget.transform;
+                }
 
                 isTrackingSound = true;
-                
-                Debug.Log($"[SPK] {gameObject.name} mengejar suara terdekat di {closest.position}, jarak {minDist}");
-        // Kosongkan list agar tidak evaluasi ulang untuk suara yang sama
+                Debug.Log($"[SPK] {gameObject.name} mengejar suara terbaik (isPlayer={bestEvent.isPlayer}) di {bestEvent.position}, skor {bestScore:F1}");
 
                 soundEvents.Clear();
-
             }
+
         }
         
         private float ApplyOcclusionReduction(Vector3 sourcePos, float originalRadius)
@@ -471,11 +518,11 @@ public void DealDamage()
         {
             // Radius suara jalan (misalnya 10)
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, 10f);
+            Gizmos.DrawWireSphere(transform.position, 5);
 
             // Radius suara lari (misalnya 20)
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, 15f);
+            Gizmos.DrawWireSphere(transform.position, 10f);
 
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, forgetSoundDistance);

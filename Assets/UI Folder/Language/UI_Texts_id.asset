@@ -88,18 +88,57 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 12946130169319424
     m_Localized: "Pemain harus memasukkan kode dari kertas-kertas \nyang dikumpulkan
-      sebelumnya untuk membuka peti ini. \nBerisi item penting seperti kunci."
+      sebelumnya untuk membuka peti ini. \nBerisi item penting seperti kunci.\nCara
+      pakai: Klik kiri mouse pada peti."
     m_Metadata:
       m_Items: []
   - m_Id: 12946185399914496
     m_Localized: "Digunakan untuk membuka pintu terakhir dan \nmenyelesaikan permainan.
-      Kunci ini ditemukan \nsetelah membuka Chest."
+      Kunci ini ditemukan \nsetelah membuka Chest.\nPenggunaan: Klik kiri mouse untuk
+      mengambil kunci"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 5714902330440679433
   - m_Id: 12946219864510464
     m_Localized: "Musuh yang sangat agresif, Pemain harus sebisa mungkin \nmenghindari
       keberadaannya. Ia bereaksi terhadap suara, \nsehingga melempar bowl bisa menjadi
       strategi untuk \nmengalihkan perhatiannya."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14149211989037056
+    m_Localized: Permainan Berakhir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14149319019286528
+    m_Localized: Menu Utama
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14149806565183488
+    m_Localized: Cupu Banget!!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14150379607773184
+    m_Localized: Coba Lagi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14155282682040320
+    m_Localized: 'Kunci: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14183459915649024
+    m_Localized: Pintu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14185218272743424
+    m_Localized: Gembok
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14185271108390912
+    m_Localized: Ganti Angka
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14185392508325888
+    m_Localized: Papan Tombol
     m_Metadata:
       m_Items: []
   references:
@@ -108,4 +147,4 @@ MonoBehaviour:
     - rid: 5714902330440679433
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 005035d051fe2d00
+        m_Entries: 005035d051fe2d000050f5ad7cfe2d00

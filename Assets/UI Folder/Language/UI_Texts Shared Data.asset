@@ -91,6 +91,42 @@ MonoBehaviour:
     m_Key: descMbokRondo
     m_Metadata:
       m_Items: []
+  - m_Id: 14149211989037056
+    m_Key: GameOver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14149319019286528
+    m_Key: btnBackMainmenu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14149806565183488
+    m_Key: Cupu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14150379607773184
+    m_Key: btnAgain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14155282682040320
+    m_Key: Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14183459915649024
+    m_Key: Door
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14185218272743424
+    m_Key: Padlock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14185271108390912
+    m_Key: chgNumber
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14185392508325888
+    m_Key: Keypad
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

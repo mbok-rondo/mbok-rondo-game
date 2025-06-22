@@ -80,6 +80,9 @@ public TextMeshProUGUI notificationText;
         missionCompleteUI.SetActive(true);
         Time.timeScale = 0f;
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         // Matikan player & enemy agar tidak ganggu UI
         if (player != null) player.SetActive(false);
         foreach (var enemy in enemies)
@@ -96,6 +99,9 @@ public TextMeshProUGUI notificationText;
             defeatUI.SetActive(true);
             Time.timeScale = 0f;
         }
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         // Matikan player & enemy agar tidak ganggu UI
         if (player != null) player.SetActive(false);
         foreach (var enemy in enemies)

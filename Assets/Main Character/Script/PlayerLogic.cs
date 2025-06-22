@@ -89,14 +89,14 @@ public class PlayerLogic : MonoBehaviour
         {
             anim.SetBool("Run", true);
             anim.SetBool("Walk", false);
-            soundEmitter?.EmitSound(15f, true); // suara lari
+            soundEmitter?.EmitSound(10f, true); // suara lari
             run();
         }
         else if (isMoving)
         {
             anim.SetBool("Run", false);
             anim.SetBool("Walk", true);
-            soundEmitter?.EmitSound(10f, true); // suara jalan
+            soundEmitter?.EmitSound(5f, true); // suara jalan
             step();
         }
         else

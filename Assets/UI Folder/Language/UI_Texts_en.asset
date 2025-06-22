@@ -88,18 +88,55 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 12946130169319424
     m_Localized: "Players must enter codes from previously collected papers \nto
-      open this chest. Contains important items such as keys"
+      open this chest. Contains important items such as keys.\nUsage: Left-click
+      the mouse to chest."
     m_Metadata:
       m_Items: []
   - m_Id: 12946185399914496
     m_Localized: "Used to open the last door and complete the game. \nThis key is
-      found after opening the Chest."
+      found after opening the Chest.\nUsage: Left-click the mouse to grab key"
     m_Metadata:
       m_Items: []
   - m_Id: 12946219864510464
     m_Localized: "A very aggressive enemy. Players should avoid its presence \nas
       much as possible. It reacts to sound, \nso throwing bowls can be a strategy
       to distract it."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14149211989037056
+    m_Localized: Game Over
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14149319019286528
+    m_Localized: Main Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14149806565183488
+    m_Localized: Very weak!!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14150379607773184
+    m_Localized: Try Again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14155282682040320
+    m_Localized: 'Key:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14183459915649024
+    m_Localized: Door
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14185218272743424
+    m_Localized: Padlock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14185271108390912
+    m_Localized: Change Number
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14185392508325888
+    m_Localized: Keypad
     m_Metadata:
       m_Items: []
   references:
