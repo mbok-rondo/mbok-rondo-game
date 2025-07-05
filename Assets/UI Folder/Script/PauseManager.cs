@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
-    public GameObject gameplayUI;
+
     public GameObject pauseUI;
     // public GameObject optionUI;
 
@@ -24,7 +24,6 @@ public class PauseManager : MonoBehaviour
 
     public void Resume()
     {
-        gameplayUI.SetActive(true);
         pauseUI.SetActive(false);
         // optionUI.SetActive(false);
         Time.timeScale = 1f;
@@ -36,7 +35,6 @@ public class PauseManager : MonoBehaviour
 
     public void Pause()
     {
-        gameplayUI.SetActive(false);
         pauseUI.SetActive(true);
         // optionUI.SetActive(false);
         Time.timeScale = 0f;
